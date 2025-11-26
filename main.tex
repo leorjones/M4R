@@ -1,0 +1,160 @@
+\documentclass[11pt,a4paper]{amsart}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{color, setspace, placeins, todonotes}
+\usepackage{minted}
+\usemintedstyle{tango}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsthm,amsmath,amssymb, mathtools, xfrac, scalerel, multicol,titlecaps,amsaddr}
+\usepackage[utf8]{inputenc}
+%\usepackage[style=ieee]{biblatex}
+\usepackage[numbers, sort&compress]{natbib}
+%\addbibresource{bib.bib}  
+\usepackage{enumitem,booktabs} 
+\usepackage[T1]{fontenc}
+\usepackage{listings, fix-cm}
+
+%\usepackage[margin=1in]{geometry}
+\usepackage{lipsum}
+%\setminted{fontsize=\small}
+
+\numberwithin{equation}{subsection}
+\setlength\intextsep{12pt}
+
+\let\oldsection\section% Store \section
+\renewcommand{\section}{% Update \section
+  \renewcommand{\theequation}{\thesection.\arabic{equation}}% Update equation number
+  \oldsection}% Regular \section
+\let\oldsubsection\subsection% Store \subsection
+\renewcommand{\subsection}{% Update \subsection
+  \renewcommand{\theequation}{\thesubsection.\arabic{equation}}% Update equation number
+  \oldsubsection}% Regular \subsection
+\renewcommand\labelenumi{(\roman{enumi})}
+\renewcommand\theenumi\labelenumi
+\newcommand{\customsmall}{\fontsize{10.55pt}{11pt}\selectfont}
+
+%testing%
+\makeatletter
+%Table of Contents
+\setcounter{tocdepth}{3}
+
+% Add bold to \section titles in ToC and remove . after numbers
+\renewcommand{\tocsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\bfseries\ignorespaces#1 #2\quad}}\bfseries#3}
+% Remove . after numbers in \subsection
+\renewcommand{\tocsubsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\ignorespaces#1 #2\quad}}#3}
+%\let\tocsubsubsection\tocsubsection% Update for \subsubsection
+%...
+
+% \newcommand\@dotsep{4.5}
+% \def\@tocline#1#2#3#4#5#6#7{\relax
+%   \ifnum #1>\c@tocdepth % then omit
+%   \else
+%     \par \addpenalty\@secpenalty\addvspace{#2}%
+%     \begingroup \hyphenpenalty\@M
+%     \@ifempty{#4}{%
+%       \@tempdima\csname r@tocindent\number#1\endcsname\relax
+%     }{%
+%       \@tempdima#4\relax
+%     }%
+%     \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+%     \rightskip\@pnumwidth plus1em \parfillskip-\@pnumwidth
+%     #5\leavevmode\hskip-\@tempdima{#6}\nobreak
+%     \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+%     \nobreak
+%     \hbox to\@pnumwidth{\@tocpagenum{\ifnum#1=1\bfseries\fi#7}}\par% <-- \bfseries for \section page
+%     \nobreak
+%     \endgroup
+%   \fi}
+% \AtBeginDocument{%
+% \expandafter\renewcommand\csname r@tocindent0\endcsname{0pt}
+% }
+% \def\l@subsection{\@tocline{2}{0pt}{2.5pc}{5pc}{}}
+% \makeatother
+
+
+
+
+%testing%
+
+
+
+
+
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{coroll}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{define}[theorem]{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+
+\title{Zeta Functions of $k$-Fold Central Products}
+
+\author{Leo Jones} 
+%\\ \scriptsize{Imperial College London}}
+
+
+\author{\small Supervised by Michele Zordan}
+\address{\small{{Department of Mathematics, Imperial College London}}}
+\date{9th June 2025,\\ \textit{CID}: 02036984}
+% \makeatletter
+% \renewcommand{\maketitle}{
+%   \begin{center}
+%     {\Large\bfseries \@title\par}
+%     \vspace{2em}
+%     {\large \@author\par}
+%     {\normalsize Imperial College London\par} % Add university here
+%   \end{center}
+% }
+% \makeatother
+\raggedbottom
+\begin{document}
+
+
+
+\begin{abstract}
+    We explore representation and conjugacy class zeta functions as well as their extended bivariate forms, introduced by Lins~\cite{LinsI}, in the context of $k$-fold central products for finitely generated, torsion-free groups of nilpotency class 2. We prove a direct relationship between the representation zeta functions of these groups and their central products. We then look at a family of these groups arising from the $\mathbb Z$-Lie lattices $\mathcal G_{m,n}$, and derive a novel and explicit formula for the bivariate conjugacy class zeta function associated with their central products.
+\end{abstract}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}\label{intro}
+\input{intro}
+\section{Preliminaries}\label{sec2} %drafted
+\input{sec2}
+\section{Computing the representation zeta function}\label{zirr}
+\input{zirr}
+\section{Bivariate Zeta functions}\label{biv}
+\input{biv}
+\section{Computing the Bivariate conjugacy class function}\label{zcc}
+\input{zcc}
+\newpage
+\section{Conclusion}
+Our calculation in Section \ref{zcc} provides a novel and direct formula for the bivariate conjugacy class function, making use of techniques explored in previous sections. In particular it shows that we do not have a direct relationship in the same way as the univariate representation case (cf. Section \ref{zirr}). This raises the question of whether there is a more natural relationship between the univariate conjugacy class zeta function for central products, as no such equivalence to the bivariate conjugacy class zeta function is currently known. 
+
+Lins mentions in \cite{LinsI} that it would be interesting to see if we can extract any other information from the bivariate zeta functions. Since the publication of her paper they have been notably used in \cite{z} to prove Theorem~\ref{Zordanstheorem}, and in \cite{rossmann2021groupsgraphshypergraphsaverage} where Rossman and Voll extended them to a family of groups associated to cographs, i.e.~the class of graphs formed from the single vertex under disjoint unions and complements. This family includes all the groups arising from the $\mathbb Z$-Lie lattice family $\mathcal F_{n,\delta}$. Moreover, their paper introduced the bivariate ask zeta functions which they used to provide an alternate proof to \cite[Theorem 1.4]{LinsII}. This seems promising for further exploration.
+
+A natural lead on from this paper would be to investigate $k$-fold central products associated with the $\mathbb Z$-Lie lattice families $\mathcal F_{n, \delta}$ and $\mathcal H_n$ to determine whether similar or perhaps stronger relationships hold. It would also be interesting to see the extension of this theory to other types of zeta functions, such as the class number zeta function $\zeta_k$ or even general class functions such as those discussed in \ref{conjdiscussion}. Zeta functions continue to be an active and evolving area in representation theory, and we may also see new techniques similar to twist-equivalence or bivariate zeta functions, which have only been introduced relatively recently.
+
+
+
+
+\newpage
+\renewcommand{\bibname}{References}
+%\bibliographystyle{unsrtnat}
+\bibliographystyle{acm}
+\bibliography{bib}
+\newpage
+\section{Appendix}\label{app}
+\input{app}
+\end{document}
+%\bibliographystyle{alpha}
+%\bibliographystyle{amsxport}

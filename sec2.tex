@@ -1,0 +1,166 @@
+
+
+In this section we introduce machinery used to study representation zeta functions. We define central products and Lie lattices, and then provide a method for constructing $\mathbb Z$- Lie lattices from $\mathcal T$-groups and the converse. We outline the construction of a suitable basis for commutator matrices, which will then be used in the calculation of the bivariate zeta functions in Sections \ref{zirr} and \ref{zcc}. 
+
+
+\subsection{Central Product}
+\begin{define}
+    Let $G$ and $H$ be groups and $\phi : Z(G) \to Z(H)$ an isomorphism between their centres. The \textit{canonical central product} is defined to be
+    $$G \times_Z H \coloneq G \times H\big/\{(z, \phi(z^{-1})) : z \in Z(G) \}.$$
+\end{define}
+
+Let $G$ and $H$ be groups with nilpotency class at most 2, isomorphic centres, and presentations
+$$G = \left\langle g_1, \dots ,g_n,z_1,\dots,z_d \:|\:G' \right\rangle, \: H = \left\langle h_1, \dots ,h_m,z_1,\dots,z_d \:|\:H' \right\rangle,$$
+%
+where $G'$, $H'$ denote the set of non zero commutators, and $z_1,\dots,z_d$ generate their centres. Their central product has presentation 
+$$G \times_Z H = \left\langle g_1, \dots ,g_n,h_1,\dots,h_m,z_1,\dots,z_d \:|\:G',H' \right\rangle,$$
+where $g_i \in G \times_Z H$ represents $g_i \in G$ under the embedding $$G \xhookrightarrow{} G \times_ZH, g \mapsto (g,1).$$
+Note that $(z_i, 1)$ and $ (1,z_i)$ are equivalent under the central product quotient.
+\begin{define}\label{k-fold}
+    Let $k\in \mathbb N$. A \textit{k-fold canonical central product} for a group $G$ with centre $Z$, is defined to be
+    \[ \times_Z^k \: G \coloneq \underbrace{G \times_Z G \times_Z \dots \times_Z G}_{k\ \mathrm{times}},\]
+    where $$ G \times_Z G \coloneq  G \times G\big/(\{(z,z^{-1}) : z \in Z\}).$$
+\end{define}
+
+
+\subsection{Lie lattices}
+A $\mathcal{T}$-group is a finitely generated, torsion-free, and nilpotent group. Throughout, we will be considering $\mathcal{T}_2$-groups, which are $\mathcal T $-groups of nilpotency class 2. Being finitely generated and nilpotent means that $\mathcal T$-groups are a type of polycyclic group, i.e.~they admit a subnormal series
+$$1 = G_0 \triangleleft G_1 \triangleleft \dots \triangleleft G_n=G,$$
+where the factors $G_{i+1}\big/G_i$ are cyclic. We define the \textit{Hirsch length} $h(G)$ of $G$ as the number of infinite factors in its subnormal series.
+
+\begin{example}\textit{Heisenberg Group}\\
+The (discrete) Heisenberg group $H$ consists of the unit upper triangular matrices and has the presentation 
+$$ \left\langle x, y, z \: |\: [x,y] = z \right\rangle,$$
+where any brackets not shown are equal to the identity. Clearly this is a nilpotent group of class 2. For copies $H_i = \left\langle x_i,y_i,z_i \:|\: [x_i,y_i]=z_i \right\rangle $, of the Heisenberg group, the $k$-fold canonical central product has presentation
+$$ \times_Z^kH =\left\langle \{x_i, y_i\}_{i \in [1,k]}, z \: |\: \{[x_i,y_i] = z\}_{i \in [1,k]} \right\rangle.$$
+We can calculate the Hirsch length via the lower central series
+$$G \geq G^1 \geq G^2 \geq \dots \geq G^n =1,$$
+where $G^1=[G,G], \ G^{i+1} = [G^i, G]$.
+Then $h(G) = \sum^{n-1}_{i=1}\mathrm{rank}\big(G^i\big/G^{i+1}\big)$.
+The Heisenberg group has a lower central series
+$$H\geq Z(H) \geq 1.$$
+Since $H\big/Z(H) \cong \mathbb Z^2$ and $Z(H) \cong \mathbb Z$, we have that $h(H)=3$.
+\end{example}
+
+Let $\mathcal O$ be a ring of integers over a number field $K$. An \textit{$\mathcal O$-Lie lattice} is a free and finitely generated $\mathcal O$-module equipped with a Lie bracket. Let $\Lambda$ be a nilpotent $\mathcal O$-Lie lattice of nilpotency class $c$. In \cite[Section 2.1.2]{zeta1}, Stasinski and Voll construct a unipotent group scheme $\mathbf G_{\Lambda}$ when $\Lambda' \subseteq c! \Lambda$ via a Hausdorff series so that $\mathbf G_{\Lambda}(\mathcal O)$ is a $\mathcal T$-group of nilpotency class c. They also explicitly construct a unipotent group scheme in the case $c=2$ which coincides with $\mathbf G_{\Lambda}$ when $\Lambda' \subseteq c! \Lambda$. We follow a version of this construction (cf.~\cite{snocken}) via a Mal'cev basis where $\mathcal O$ is taken as $\mathbb Z$. This is given by the correspondence proved by Mal'cev in \cite{malcev}. This is sufficient for the purposes of this paper, since we are considering families of $\mathbb Z$-Lie lattices, but for a general construction over $\mathcal O$ see \cite[Section 2.1.2]{zeta1}.
+
+\subsubsection{Mal'cev correspondence}\label{malcev} First we will construct a $\mathbb Z$-Lie lattice from a $\mathcal T_2$-group G. Define $m=h(G\big/Z(G))$ and $n=h(Z(G))$. A \textit{Mal'cev basis} is a basis $x_1,\dots,x_m,x_{m+1},\dots,x_{m+n}$ such that $\overline{x_1},\dots,\overline{x_m}$ is a basis for $G\big/Z(G)$ (where $\overline{x_i}$ denotes the image of $x_i$ under the natural quotient map), and $x_{m+1}, \dots, x_{m+n}$ is a basis for $Z(G)$. Then, $G$ has a presentation
+$$\Bigg<\begin{array}{c|}x_1,\dots,x_m\\x_{m+1},\dots,x_{m+n}
+\end{array}\phantom{X} [x_i,x_j]=\prod^n_{k=1}x_{m+k}\lambda_{ij}^k\Bigg>,$$
+where $\lambda_{ij}^k$ depend on our choice of Mal'cev basis. Note that since $G$ has nilpotency class 2, $G\big/Z(G)$ is abelian and $G\big/Z(G) \oplus Z(G)\cong \mathbb Z ^{m+n}$. This, as a $\mathbb Z$-module, equipped with the commutator bracket extended over the direct sum by anti-symmetry and bi-linearity, forms a $\mathbb Z$-Lie lattice. We will denote it by $\Lambda_G$.
+
+Now we will construct a group $G_\Lambda$ from a $\mathbb Z$-Lie lattice $\Lambda$. Elements of $\Lambda$ are of the form $\mathbf x^\mathbf{a}=a_1x_1 + \dots+a_{m+n}x_{m+n}$ for $a_i \in \mathbb Z$, with $\mathbf x^\mathbf{a}+\mathbf x^\mathbf{a'}=\mathbf x^\mathbf{a+a'}$. We define a group multiplication $\star$ on the basis of $\Lambda$ as follows
+%
+$$x_i^{a_i} \star x_j^{a_j}= x_i^{a_i}x_j^{a_j}\prod^n_{k=1}x_{m+k}^{a_ia_j\lambda^k_{ij}}.$$
+%
+Then $(\Lambda,\star)\cong G_\Lambda$. These constructions are inverse to each other.
+
+\subsection{Explicit basis construction}\label{basisconstruct}
+Throughout, let $\Lambda$ be a nilpotent $\mathcal O$-Lie lattice, $\mathfrak p$ be a non-zero prime ideal in $\mathcal O$, and let $\mathfrak o =\mathcal O_\mathfrak p$ be the localisation at $\mathfrak p$. Consider the Lie lattice $\mathfrak g \coloneq \Lambda \otimes_\mathcal O \mathfrak o$ with derived lattice $\mathfrak g'$ and centre $\mathfrak z$.
+\begin{define}
+Let $M$ be a finitely generated $R$-module with submodule $N$. We call $\iota(N)$ the \textit{isolator} of $N$ in $M$, and define it to be the smallest submodule of $M$ such that $N \leq \iota(N) \leq M$ and $M\big/\iota(N)$ is torsion free.
+\end{define} 
+For a DVR $\mathfrak o$ with maximal ideal $(\pi)$, the elementary divisor theorem (see, for example, \cite[Theorem 6.12]{hungerford1974algebra}) allows us to choose a basis $\textbf{e}=\{e_1,\dots,e_n\}$ of $\mathfrak g $ such that, for any submodule $\mathfrak w $ and its isolator $\iota(\mathfrak w)$, we can express their bases in the form
+\begin{align*}
+\mathfrak w = \langle\pi^{b_i}e_i, \dots \pi^{b_j}e_j\rangle,&&\iota(\mathfrak w) = \langle e_i, \dots e_j\rangle,
+\end{align*}
+%
+where $b_i, \dots,b_j$ are the \textit{elementary divisors} of $\mathfrak w$. As in \cite[Section 2.2.2]{zeta2}, we use this method to get a suitable basis for $\mathfrak g$. For context, we will outline the method for general nilpotency class. Let
+\begin{align*}
+    h &= \mathrm{rk}_{\mathfrak{o}} \mathfrak{g}, & 
+    k &= \mathrlap{\mathrm{rk}_\mathfrak{o}(\iota(\mathfrak{g}') / \iota(\mathfrak{g}' \cap \mathfrak{z})) = \mathrm{rk}_\mathfrak{o}(\iota(\mathfrak{g}' + \mathfrak{z}) / \mathfrak{z}),}\\
+    d &= \mathrm{rk}_\mathfrak{o}(\mathfrak{g}'), & 
+    r - k &= \mathrm{rk}_\mathfrak{o}(\mathfrak{g} / \iota(\mathfrak{g}' + \mathfrak{z})), & 
+    r &= \mathrm{rk}_\mathfrak{o}(\mathfrak{g} / \mathfrak{z}).
+\end{align*}
+%
+Let $\overline{x}$ denote the image of $x$ under natural surjection \( \mathfrak{g} \to \mathfrak{g}/\mathfrak{z} \). As above, let $\pi$ be a uniformiser of $\mathfrak o$, and note that $\iota(\mathfrak{z})=\mathfrak{z}$ by \cite[Lemma 2.5]{zeta2}. We choose a basis $\textbf{e}$ for $\mathfrak g$, and $b_1,\dots,b_d\in\mathbb N$ such that
+% $$
+% \textbf{e} = (e_1, \ldots, e_{r-k}, \underbrace{e_{r-k+1}, \ldots, e_r}_{\iota(\mathfrak{g}' + \mathfrak{z})}, \overbrace{\underbrace{e_{r+1}, \ldots, e_{r-k+d}}_{\iota(\mathfrak{g}' \cap \mathfrak{z})}, e_{r-k+d+1}, \ldots, e_{h}}^{\mathfrak z})
+% $$
+\begin{align*}
+&\textbf{e}=(e_1,\dots,e_h),&&\mathfrak{z} = \langle e_{r+1}, \ldots, e_{h} \rangle,\\
+&\overline{\mathfrak{g}' + \mathfrak{z}} = \langle \pi^{b_1}e_{r-k+1}, \ldots, \pi^{b_k}e_r \rangle ,&& \iota(\mathfrak{g}' + \mathfrak{z}) = \langle \overline{e_{r-k+1}}, \ldots, \overline{e_r} \rangle,\\
+&\mathfrak{g}' \cap \mathfrak{z} = \langle \pi^{b_{k+1}}e_{r+1}, \ldots, \pi^{b_d}e_{r-k+d} \rangle, && \iota(\mathfrak{g}' \cap \mathfrak{z}) = \langle e_{r+1}, \ldots, e_{r-k+d} \rangle.
+\end{align*}
+%
+From this we can define a basis $\textbf{f} $ of $\mathfrak g'$ 
+\begin{align*}
+    &(\overline{f_1}, \ldots, \overline{f_k}) = (\pi^{b_1}e_{r-k+1}, \ldots, \overline{\pi^{b_k}e_r}),\\
+    &(f_{k+1}, \ldots, f_d) = (\pi^{b_{k+1}}e_{r+1}, \ldots, \pi^{b_d}e_{r-k+d}).
+\end{align*}
+%
+In the case that $\mathfrak{g}$ is a class-2 nilpotent  $\mathfrak o$-Lie lattice, the above reduces to
+\begin{align*}
+    &h= \mathrm{rk}_{\mathfrak o}\mathfrak g,
+    &&k=\mathrm{rk}_\mathfrak{o}(\iota(\mathfrak g')\big/\iota(\mathfrak g' \cap \mathfrak z)) = \mathrm{rk}_\mathfrak{o}(\iota(\mathfrak g'+\mathfrak z)\big/\mathfrak z)= 0,
+    \\&d = \mathrm{rk}_\mathfrak{o}(\mathfrak g') = \mathrm{rk}_\mathfrak{o}(\mathfrak z),
+    &&r= \mathrm{rk}_\mathfrak{o}(\mathfrak g\big/\mathfrak z) =\mathrm{rk}_\mathfrak{o}(\mathfrak g\big/\iota(\mathfrak g' + \mathfrak z)),
+\end{align*}
+$$\text{with $\mathfrak o$-basis }\textbf{e} =\{\underbrace{e_1,\dots,e_r}_{\mathfrak g/\mathfrak z}, \underbrace{e_{r+1},\dots,e_h}_{\mathfrak z} \}. $$
+Since $\iota(\mathfrak g')=\iota(\mathfrak z) = \mathfrak g'$, the basis $\textbf{f}=\{e_{r+1},\dots,e_h\}$ is a basis for $\mathfrak g'$. We define the structure constants $\lambda_{ij}^l$ with respect to this basis
+$$[e_i,e_j]=\sum^d_{l=1}\lambda^l_{ij}f_l.$$ 
+This allows us to define the following.
+
+ 
+\subsection{Commutator matrices}
+\begin{define}[{\cite[Definition~2.1]{commmatrix}}]\label{comms}
+    We define the following \textit{commutator matrices} of $\mathfrak{o}$-linear forms,
+    \begin{align*}
+        \mathcal A_{\Lambda,\mathbf{e}}(\boldsymbol{X}) =\bigg(\sum^r_{l=1}\lambda^j_{il}X_l\bigg)_{ij} 
+        \in \mathrm{Mat}_{r\times d}(\mathfrak o[\boldsymbol X]), \\
+        \mathcal B_{\Lambda,\mathbf{e}}(\boldsymbol{X)} =\bigg(\sum^d_{l=1}\lambda^l_{ij}X_l\bigg)_{ij}
+        \in \mathrm{Mat}_{r\times r}(\mathfrak o[\boldsymbol X]),
+    \end{align*}
+    with respect to a basis $\mathbf{e}$ and structure constants from the associated Lie lattice $\Lambda\otimes_{\mathcal O}\mathfrak o$. Where it is clear from context we may drop the basis $\mathbf{e}$, and refer to the commutator matrix of a lattice $\Lambda$ via its group (obtained by $\mathbf G_{\Lambda}(\mathcal O)$).
+\end{define}
+
+Recall our example of the Heisenberg group, $H$. Let $\mathfrak h$ denote its associated $\mathbb Z$-Lie lattice, with centre $\mathfrak z_\mathfrak h$. We can find the commutator matrix of its associated Lie lattice with respect to the basis $\textbf{e} = \{x,y,z\}$,
+
+
+$$\begin{rcases} d = rk(\mathfrak h')=1 \\ r =rk(\mathfrak h/\mathfrak{z}_\mathfrak h)=2 \\ [x,y] = z\\ [y,x] = -z\end{rcases} \implies \mathcal{B}_{H,\textbf{e}}(\text{Y}) = \begin{pmatrix}
+0 & Y\\
+-Y & 0
+\end{pmatrix}.$$
+
+
+We can also find the commutator matrix of $\times_Z^kH$ with respect to the basis $\mathbf{f} = \{x_1,y_1,\dots,x_k,y_k,z\}$, noting that elements outside the centre from different copies have commutator equal to zero. This is given by
+
+$$\begin{rcases} d = rk((\times_Z^kH)')=1 \\ r =rk(\times_Z^kH/\mathfrak{z})=2k \\ [x_i,y_i] = z\\ [y_i,x_i] = -z \end{rcases} \implies\mathcal{B}_{\times_Z^kH,\textbf{f}}(\textbf{Y}) =
+\begin{pmatrix}
+\mathcal{B}_{H,\textbf{e}}(\text{Y}_1) & &  \\
+& \ddots & \\
+ & & \mathcal{B}_{H,\textbf{e}}(\text{Y}_k)
+\end{pmatrix}.$$
+%
+By reordering $\mathbf{f}$ as $\mathbf{f}' = \{x_1,x_2,\dots,y_{k-1},y_k,z\}$, we can find an alternate form, which is equivalent under elementary row and column operations,
+%
+$$\mathcal{B}_{\times_Z^kH,\textbf{f}'}(\textbf{Y}) =
+\begin{pmatrix}
+0&\textbf{Y}\cdot \textbf{I}_k \\
+-\textbf{Y}\cdot \textbf{I}_k &0 
+ \end{pmatrix}.
+$$
+This result can be naturally extended to $\mathcal T_2$-groups in general.
+\begin{prop}\label{kfoldBmatrix}
+    For any $\mathcal T_2$-group G with central product $\times^k_ZG$, its commutator matrix may be given as follows
+    $$\mathcal B_{\times_Z^kG,\textbf{e}'}(\boldsymbol{Y}) = \bigoplus_{i=1}^{k}\mathcal B_{G, \textbf{e}}(\boldsymbol{Y}) =
+    \begin{pmatrix}
+\mathcal B_{G,\textbf{e}}(\boldsymbol{Y}) & &  \\
+& \ddots & \\
+ & & \mathcal B_{G,\textbf{e}}(\boldsymbol{Y})
+\end{pmatrix}.$$
+\end{prop}
+\begin{proof}
+    Given a basis $\mathbf{e} = \{g_1,\dots,g_r,z_1,\dots,z_d\}$ for $G$, we have a presentation
+    $$G = \langle g_1,\dots,g_r,z_1,\dots,z_d| G' \rangle.$$
+    Its $k$-fold central product has presentation
+%
+    $$\times_Z^kG = \left\langle \{g_{i1},\dots g_{ir}\}_{i\in[k]},z_1,\dots,z_d | \{G_i'\}_{i\in(1,\dots,k)}\right\rangle.$$
+    Where $\mathbf{e}' = \{\{g_{i1},\dots,g_{ir}\}_{i\in[k]},z_1,\dots,z_d\}$ is our basis ordering for \\$\mathcal B_{\times_Z^kG,\textbf{e}'}(\boldsymbol{Y})$, and each $g_{ij}$ representing $g_j$ under the embedding
+    %
+    $$G \xhookrightarrow{} \times_Z^kG, \; g_j \mapsto (1,\dots,g_{ij},\dots,1),\; i\in[k].$$
+
+    Note $\{\dots,z_{il},\dots\}$ and $\{\dots,z_{jl},\dots\}$ are equivalent under the central product quotient and are therefore not distinct in the presentation. Elements outside the centre from different copies do not interact i.e.~they are not identified in the presentation hence their commutator is zero. Therefore our basis $\mathbf{e}$ induces a block diagonal matrix, with blocks determined by the commutator matrix of $G$.
+\end{proof}
+

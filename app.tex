@@ -1,0 +1,58 @@
+
+\begin{minted}[
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+fontsize=\fontsize{9}{9},
+]{python}
+var('T1 T2 q qA qBN qCN qBM qCM Z1 Z2 Z3')
+var('T_1m T_1n r_m r_n r_mn k r_k r_nk r_mk r_mnk')  
+var('m n k')
+
+# Our polynomial (5.2.2)
+pol1 = (1 - q^(m*n) * T2)^(-1) * (1 + Z1 + Z2 + Z3)
+
+# Domains of integration, with substitutions for readability
+Z1 = (1 - q^(-k*m)) * (1 - q^(-k*n)) * qA / (1 - qA)
+Z2 = (1 - q^(-k*m)) * (1 - qBN) * qCN / ((1 - qA) * (1 - qCN))
+Z3 = (1 - q^(-k*n)) * (1 - qBM) * qCM / ((1 - qA) * (1 - qCM))
+
+# Substitutions
+qA = T1^(m + n - 1) * T2 * q^(m*n + 1) * q^((k - 1)*(m + n))
+qBN = T1^(m + n - 1) * T2 * q^((m - 1)*n + 1) * q^((k - 1)*m)
+qBM = T1^(m + n - 1) * T2 * q^((n - 1)*m + 1) * q^((k - 1)*n)
+qCN = T1^n * T2 * q^((m - 1)*(n + 1) + 1) * q^((k - 1)*m)
+qCM = T1^m * T2 * q^((n - 1)*(m + 1) + 1) * q^((k - 1)*n)
+
+Z1 = Z1.subs(qA=qA)
+Z2 = Z2.subs(qA=qA, qBN=qBN, qCN=qCN)
+Z3 = Z3.subs(qA=qA, qBM=qBM, qCM=qCM)
+
+# Compiling integral
+pol1 = pol1.subs(Z1=Z1, Z2=Z2, Z3=Z3)
+
+# Our denominator is already in the correct form
+pol2 = pol1.numerator().simplify_full() * T1
+pol3 = pol1.denominator() * T1
+
+# In order to simplify the numerator in terms of T1 and T2,
+# we need powers of q to be constants
+subs = {r_n: q^n, r_n^2: q^(2*n), r_m: q^m, r_m^2: q^(2*m), r_k: q^k,
+    r_nk: q^(k*n), r_mk: q^(k*m), r_mnk: q^(k*n*m), r_mn: q^(n*m), 
+    r_mn^2: q^(2*n*m), r_mn^3: q^(3*n*m), T_1m: T1^m, T_1n: T1^n,      
+    T_1m^2: T1^(2*m), T_1n^2: T1^(2*n), r_nk^2: q^(2*k*n), r_mk^2: q^(2*k*m)}
+reverse_subs = {v: k for k, v in subs_dict.items()}
+
+# Apply dictionary
+pol2 = pol2.expand().subs(reverse_subs)
+
+# We create our ring over T1 and T2, treating powers of q as constants
+F = QQ[q, r_m, r_n, r_mn, r_k, r_nk, r_mk, r_mnk]
+F = F.fraction_field()
+Ring = F[T1, T2, T_1m, T_1n]
+pol2 = SR(Ring(pol2)) # Symbolic ring allows resubstituion of q
+
+# Display final result
+%display latex
+pol2.subs(subs)
+\end{minted}

@@ -1,0 +1,479 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{cite, color}
+\usepackage{amsthm,amsmath,amssymb, mathtools, xfrac, eufrak, scalerel}
+\usepackage[backend=bibtex,style=vancouver]{biblatex}
+\addbibresource{bib.bib}  
+\usepackage{enumitem,booktabs} 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{define}{Definition}
+
+\title{M4R}
+\author{Leo Jones}
+\date{January 2025}
+
+\begin{document}
+
+\maketitle
+
+\textcolor{red}{define: g, o , group scheme lie lattice notation: group presentation, commutator, $()^*$. Integral (k central equivalent), both zeta functions}
+
+\subsection{Commutator matrix}
+(As in [1], 2.2.2). For a Lie lattice $\mathfrak{g}$ over $\mathfrak{o}$ with centre $\mathfrak{z}$ and $\mathfrak{o}$-basis $\boldsymbol{e}$ for $\mathfrak{g}$, $\boldsymbol{f}$ for $\mathfrak{g'}$ we define the \textit{commutator matrix} as follows:
+$$\mathcal{R}(\textbf{Y}) = \left( \sum_{l=1}^d \lambda_{ij}^lY_l\right)_{ij} \: \in Mat_r(\mathfrak{o}[\textbf{Y}])$$
+
+where $d = rk(\mathfrak{g'}),\: r =rk(\mathfrak{g}/\mathfrak{z}),\: [e_i,e_j] = \sum_{l=1}^d \lambda_{ij}^lf_l$, and \textbf{Y} are independent variables over $\mathfrak{o}$.
+
+
+
+\subsection{Central Product}
+\begin{define}\label{define}
+    Given groups $G$, $H$, and an isomorphism between their centres $\phi : Z(G) \to Z(H)$, the \textit{canonical central product} is defined to be :
+    $$G \times_Z H \coloneq \sfrac{G \times H}{\{(z, \phi(z^{-1})) : z \in Z(G) \}}$$
+\end{define}
+
+Given two groups of nilpotency class at most 2 $G$ and $H$ with isomorphic centres, a map $\phi : Z(G) \to Z(H)$ and a presentation:
+$$G = \left\langle g_1, \cdots ,g_n,z_1,\cdots,z_d \:|\:G' \right\rangle, \: H = \left\langle h_1, \cdots ,h_m,z_1,\cdots,z_d \:|\:H' \right\rangle$$
+
+where $G'$, $H'$ denote the set of non zero commutators, and $z_1,\cdots,z_d$ generate their centres, then their central product has presentation :
+$$G \times_Z H = \left\langle g_1, \cdots ,g_n,h_1,\cdots,h_m,z_1,\cdots,z_d \:|\:G',H' \right\rangle$$
+where $g_i \in G \times_Z H$ represents $g_i \in G$ under the embedding $$G \xhookrightarrow{} G \times_ZH, g \mapsto (g,1)$$
+ since $(z_i, 1)$ and $ (1,z_i)$ are equivalent under the central product quotient.
+\begin{define}
+    A \textit{k-fold canonical central product} for a group $G$ with centre $Z$, is defined to be: 
+    \[ \times_Z^k \: G \coloneq \underbrace{G \times_Z G \times_Z \cdots \times_Z G}_{k\:times}\]
+    
+    where $$ G \times_Z G \coloneq  \sfrac{G \times G}{(\{(z,z^{-1}) : z \in Z\})} $$
+\end{define}
+
+\subsection{Heisenberg group}
+The (discrete) Heisenberg group $H$ consists of the unit upper triangular matrices and has the presentation : 
+$$ \left\langle x, y, z \: |\: [x,y] = z \right\rangle$$
+(any brackets not shown = e). Clearly this is a nilpotent group of class 2.
+
+For copies $H_i = \left\langle x_i,y_i,z_i \:|\: [x_i,y_i]=z_i \right\rangle $, of the Heisenberg group, the $k$-fold canonical central product has presentation: 
+
+$$ \times_Z^kH =\left\langle \{x_i, y_i\}_{i \in [1,k]}, z \: |\: \{[x_i,y_i] = z\}_{i \in [1,k]} \right\rangle$$
+
+For class 2 nilpotent t- groups, method for constructing lie ring/lattice either mal'cev (original paper?) or 2.4.1 in [zeta 1]
+
+Considered as a Lie lattice, we can find the commutator matrix of $H$, with respect to the basis $\boldsymbol{e} = \{x,y,z\}$:
+
+$$\begin{rcases} d = rk(H')=1 \\ r =rk(H/\mathfrak{z})=2 \\ [x,y] = z\\ [y,x] = -z\end{rcases} \:\mathcal{R}_{H,\boldsymbol{e}}(\text{Y}) = \begin{pmatrix}
+0 & Y\\
+-Y & 0
+\end{pmatrix}$$
+
+
+And the commutator matrix of $\times_Z^kH$ with respect to the basis $\boldsymbol{f} = \{x_1,y_1,\cdots,x_k,y_k,z\}$:
+
+$$\begin{rcases} d = rk((\times_Z^kH)')=1 \\ r =rk(\times_Z^kH/\mathfrak{z})=2k \\ [x_i,y_i] = z\\ [y_i,x_i] = -z \end{rcases} \:\mathcal{R}_{\times_Z^kH,\boldsymbol{f}}(\textbf{Y}) =
+\begin{pmatrix}
+\mathcal{R}_{H,\boldsymbol{e}}(\text{Y}_1) & &  \\
+& \ddots & \\
+ & & \mathcal{R}_{H,\boldsymbol{e}}(\text{Y}_k)
+\end{pmatrix}$$
+
+Or with respect to basis $\boldsymbol{f}' = \{x_1,x_2,\cdots,y_{k-1},y_k,z\}$:
+$$\mathcal{R}_{\times_Z^kH,\boldsymbol{f}'}(\textbf{Y}) =
+\begin{pmatrix}
+0&\textbf{Y}\cdot \textbf{I}_k \\
+-\textbf{Y}\cdot \textbf{I}_k &0 
+ \end{pmatrix}
+$$
+
+\begin{prop}
+    For any class 2 nilpotent G (given group -> Lie lattice):
+    $$\mathcal{R}_{\times_Z^kG,\boldsymbol{e}'}(\boldsymbol{Y}) = \bigoplus_{i=1}^{k}\mathcal{R}_{G, \boldsymbol{e}}(\boldsymbol{Y}) =
+    \begin{pmatrix}
+\mathcal{R}_{G,\boldsymbol{e}}(\boldsymbol{Y}) & &  \\
+& \ddots & \\
+ & & \mathcal{R}_{G,\boldsymbol{e}}(\boldsymbol{Y})
+\end{pmatrix}$$
+\end{prop}
+\begin{proof}
+    Given $G = \left\langle \underbrace{g_1,\cdots,g_r,z_1,\cdots,z_d}_{\boldsymbol{e}}| G' \right\rangle$, its $k$-fold central product has presentation:
+
+    $$\times_Z^kG = \left\langle \underbrace{\{g_{i1},\cdots g_{ir}\}_{i\in(1,\cdots,k)},z_1,\cdots,z_d}_{\boldsymbol{e}'} | \{G_i'\}_{i\in(1,\cdots,k)}\right\rangle$$
+
+    With each $g_{ij}$ representing $g_j$ under the embedding: 
+    
+    $$G \xhookrightarrow{} \times_Z^kG, \; g_j \mapsto (1,\cdots,g_{ij},\cdots,1),\; i\in(1,\cdots,k)$$
+
+    Note $\{\cdots,z_{il},\cdots\}$ and $\{\cdots,z_{jl},\cdots\}$ are equivalent under the central product quotient and are therefore not distinguished in the presentation.
+
+    We will therefore get a block diagonal matrix, with blocks determined by the commutator matrix of $G$.
+    \textcolor{red}{more explanation?}
+\end{proof}
+
+\subsection{$\nu$ and $\mathcal{N}$}
+As in \cite{zeta2}
+\textcolor{red}{prerequisite on elementary divisor/within dvr?d needs to depend on rk(G') given in $\mathcal{N}$}
+Define $W(\mathfrak{o}) \coloneq (\mathfrak{o}^d)^\ast \coloneq (\mathfrak{o}^d \smallsetminus \mathfrak{po}^d)$. For $\textbf{y} \in W(\mathfrak{o})$, the matrix $\mathcal{R}(\textbf{y})$ has elementary divisors of the form $\mathfrak{p}^a$ for $a \in \mathbb{N}_0 \cup \{\infty\}$. pairs/inf
+
+Define 
+$$\nu(\mathcal{R}(\textbf{y})) \coloneq (a_1,\cdots,a_{\left\lfloor d/2 \right\rfloor}) \coloneq \textbf{a}$$.
+
+We say $\mathcal{R}(\textbf{y})$ has elementary divisor type $\textbf{a}$. 
+
+
+
+Let $\overline{\textbf{y}}$ be the image of \textbf{y} under the mapping $(\mathfrak{o}^d)^\ast\longrightarrow ((\mathfrak{o}/\mathfrak{p}^N)^d)^\ast \coloneq W_N(\mathfrak{o})$. The elementary divisor type of $\mathcal{R}(\overline{\textbf{y}})$ is:
+
+$$\nu(\mathcal{R}(\overline{\textbf{y}})) \coloneq min\{a_i, n\}_{i \in \{1,\cdots,\left\lfloor d/2 \right\rfloor\}}) 
+$$
+
+\textcolor{red}{omit subscripts of R: e and G when relevant}
+We define the counting function:
+
+$$\mathcal{N}^\mathfrak{o}_{N, \boldsymbol{a},G} := \# \{ \boldsymbol{y} \in W_N(\mathfrak{o}) \mid \nu(\mathcal{R}_G(y)) = \boldsymbol{a} \}$$
+
+In \cite[Proposition 3.1]{zeta2}, it is shown that we can express the representation zeta function with respect to this \textcolor{red}{(intro poincare series?)}:
+\begin{prop}\label{p1}\emph{\cite[Prop 3.1]{zeta2}}
+    $$
+\zeta_{\boldsymbol{G}(\mathfrak{o})}(s) = 
+\sum_{N \in \mathbb{N}_0, \, \boldsymbol{a} \in \mathbb{N}_0^{ 
+\left\lfloor \frac{r}{2} \right\rfloor}}
+\mathcal{N}_{N,a}^\mathfrak{o} \: q^{
+-\sum_{i=1}^{\lfloor r/2 \rfloor} 
+(N - a_i)s }
+=: \mathcal{P}_{\mathcal{R}, \mathfrak{o}}(s)$$
+\end{prop}
+
+
+\begin{prop}\label{prop} 2- nilpotent Lie lattice \textbf{G}:
+    $$\zeta_{\times_Z^k\textbf{G}}(s) = \zeta_\textbf{G}(ks)$$
+
+    use [1] prop 2.18
+\end{prop}
+\begin{proof}
+    Clearly, for a class 2 nilpotent $G$, if $\mathcal{R}_{G,\boldsymbol{e}}(\textbf{y})$ has elementary divisor type $\boldsymbol{a} = \{a_1,\cdots,a_n\}$, then $\mathcal{R}_{\times_Z^kG,\boldsymbol{e}}(\boldsymbol{Y}) = \bigoplus_{i=1}^{k}\mathcal{R}_{G, \boldsymbol{e}}(\boldsymbol{Y})$ , will have elementary divisor type $\boldsymbol{a}^k = \{\underbrace{a_1,\cdots,a_n,a_1,\cdots,a_n\}}_{\text{k copies}}$
+
+\begin{align*}   
+\nu(\mathcal{R}_G(\boldsymbol{Y})) = \boldsymbol{a} &\iff \nu(\mathcal{R}_{\times_Z^kG}(\boldsymbol{Y})) = \boldsymbol{a}^k\\
+&\implies \mathcal{N}_{N,\boldsymbol{a},G}=\mathcal{N}_{N, \boldsymbol{a}^k, \times_Z^kG}\\
+\implies \zeta_{\times_Z^kG}(s) &\underset{\ref{p1}}{=} 
+\sum_{N \in \mathbb{N}_0, \, \boldsymbol{a} \in \mathbb{N}_0^{kn}}\mathcal{N}_{N,\boldsymbol{a},\times_Z^kG} \: q^{-\sum_{i=1}^{kn} (N - a_i)s}\\ &= 
+\sum_{N \in \mathbb{N}_0, \, \boldsymbol{a} \in \mathbb{N}_0^{n}}\mathcal{N}_{N,\boldsymbol{a}^k,\times_Z^kG} \: q^{-k\sum_{i=1}^{n} (N - a_i)s}\\ &=
+\sum_{N \in \mathbb{N}_0, \, \boldsymbol{a} \in \mathbb{N}_0^{n}}\mathcal{N}_{N,\boldsymbol{a},G} \: q^{-k\sum_{i=1}^{n} (N - a_i)s} \underset{\ref{p1}}{=} 
+\zeta_G(ks)
+\end{align*}
+\end{proof}
+
+
+\subsection{Bivariate Zeta}
+We introduce ?two Bivariate [Lins]. Let $c_n(G)$ denote the number of conjugacy classes of size $n$ in a group $G$. Define:
+$$\zeta_G^{cc}(s)\coloneq \sum_{n=1}^\infty c_n(G)n^{-s}$$
+\begin{define}\cite{Lins}
+    The bivariate conjugacy class zeta function is 
+    $$\mathcal{Z}_{\mathbf{G}(\mathcal{O})}^{\mathrm{cc}}(s_1,s_2)=\sum_{(0)\neq I\trianglelefteq 
+ \mathcal{O}} \zeta_{\mathbf{G}(\mathcal{O}/I)}^{\mathrm{cc}}(s_1)|{\mathcal{O}}:I|^{-s_2}
+    $$
+\end{define}
+-euler product
+-igusa integral Z_B
+-[9, 4.8] Z to Z_B
+
+Define the following $\mathbb{Z}$-Lie lattice for $m,n \in \mathbb{N}$:
+
+$$\Lambda_{m,n} \coloneq \left\langle x_1,\cdots,x_{m+n}, \{z_{ij} \}_{i \in[m], j \in [n]} \:| \:[x_i,x_{m+j}] = z_{ij}\right\rangle $$
+
+Denote the group scheme  \textcolor{red}{via method} $\boldsymbol{G}_{\Lambda_{m,n}}$ by $G_{m,n}$. $G_{m,n}$ is of nilpotency class 2, therefore from SECTION, we know its $k$-fold central product has presentation:
+
+$$\times_Z^k G_{m,n} = \stretchleftright[600]{\langle}
+{\begin{array}{cc|c} x_{11}, \cdots,x_{1 m+n} &&[x_{1i},x_{1m+j}] = z_{ij} \\
+\ \ \ \vdots \phantom{XXXXX} \vdots & \{z_{ij}\}_{i \in [m],j\in[n]}  & \phantom{XXXX}\vdots \\
+x_{k1}, \cdots,x_{km+n} &&[x_{ki},x_{km+j}=z_{ij}]
+\end{array}}{\rangle}$$
+
+
+Define a new commutator matrix: 
+$$
+\left( \mathcal{A}(\boldsymbol{X}) \right)_{ik} = \sum_{j=1}^{r}\lambda^k_{ij}X_j \ \
+\begin{array}{c}
+    i \in [r]\\k\in[d]
+\end{array} \ \in Mat_{r\times d}(\mathfrak{o}[\boldsymbol{X}])
+$$
+
+\cite[$\S$4.1]{z}:
+$$
+A_{G_{m,n}}(\boldsymbol{X})=\begin{pmatrix} 
+X_{m+1} \cdots X_{m+n} && \\
+& \ddots & \\
+&& X_{m+1} \cdots X_{m+n} \\
+-X_1\cdot I_n &\cdots& -X_m \cdot I_n
+\end{pmatrix} \ \in Mat_{m+n,mn}(\mathfrak{o}[\boldsymbol{X}])
+$$ 
+\begin{prop}
+    $$A_{X_Z^kG_{m,n}}(\boldsymbol{X})=\begin{pmatrix}
+A_{G_{m,n}}(\boldsymbol{X_1}) \\ \vdots \\ A_{G_{m,n}}(\boldsymbol{X_k})
+\end{pmatrix}
+\begin{rcases} \\ \\ \\ \\
+\end{rcases}\text{k copies}
+$$
+where $\boldsymbol{X}= (\underbrace{X_{11},\cdots,X_{1m+n}}_{\boldsymbol{X_1}},\cdots,\underbrace{X_{k1},\cdots,X_{km+n}}_{\boldsymbol{X_k}})$
+\end{prop}
+
+With basis reordering \textcolor{red}{basis}
+$$\times_Z^k G_{m,n} = \stretchleftright[600]{\langle}
+{\begin{array}{ccc|c} x_{11}, \cdots,x_{1 m} &x_{1m+1},\cdots,x_{1m+n}&&[x_{1i},x_{1m+j}] = z_{ij} \\
+\ \ \ \vdots \phantom{XXXXX} \vdots && \{z_{ij}\}_{i \in [m],j\in[n]}  & \phantom{XXXX}\vdots \\
+x_{k1}, \cdots,x_{km} &x_{km+1},\cdots,x_{km+n}&&[x_{ki},x_{km+j}=z_{ij}]
+\end{array}}{\rangle}$$
+$$
+A_{X_Z^kG_{m,n}}(\boldsymbol{X})=\begin{pmatrix} 
+X_{1m+1} \cdots X_{1m+n} \\
+\vdots \hphantom{XXXXX} \vdots \\
+X_{km+1} \cdots X_{km+n}\\
+& \ddots & \\
+&& X_{1m+1} \cdots X_{1m+n} \\
+&&\vdots \hphantom{XXXXX} \vdots \\
+&&X_{km+1} \cdots X_{km+n}\\
+-X_{11}\cdot I_n &\cdots& -X_{1m} \cdot I_n\\
+\vdots && \vdots \\
+-X_{k1}\cdot I_n &\cdots& -X_{km} \cdot I_n\\
+\end{pmatrix}\ \in Mat_{k(m+n),mn}(\mathfrak{o}[\boldsymbol{X}])
+$$
+\begin{define}
+    We define the set of monomials:
+    $$\mathcal{M}_{\times_Z^kG_{m,n}}^t = X_{i_1j_1}\cdots X_{i_{\lambda}j_{\lambda}}X_{p_1m+q_1}\cdots X_{p_{\omega}m+q_{\omega}} \phantom{XX}\begin{array}{r}
+        \lambda \in [n], \ \omega \in[m] \ : \lambda +\omega = t\\
+        i_1,\cdots,i_\lambda,p_1,\cdots,p_\omega \in [k]\\
+        \ j_1,\cdots,j_\lambda \in [m]\\
+        q_1,\cdots,q_\omega\in[n]\\
+    \end{array}$$
+
+
+\end{define}
+
+\begin{lemma}\emph{\cite[Lem 4.8]{z}}
+    f hom of degree omega or lambda
+\end{lemma}
+
+\begin{prop}\emph{\cite[Prop 4.9]{z}}
+    $\mathcal{M}_{\times_Z^kG_{m,n}}^t$ :
+    \\a- generates all (up to sign) minors of A as $k$-nomials in M
+    \\b- contains only monomials of A
+\end{prop}
+\begin{proof} Following the proof in \cite[Prop 4.9]{z}, we proceed by induction on m+n.
+The base case is $m=n=1$.
+$$A_{X_Z^kG_{m,n}}(\boldsymbol{X})=
+\begin{pmatrix}X_{12}\\\vdots\\X_{k2}\\-X_{11}\\\vdots\\-X_{k1}\end{pmatrix}$$
+The only minors of this matrix are the individual terms, which are precisely the elements (up to sign) of $\mathcal{M}_{\times_Z^kG_{1,1}}^1$, hence the proposition holds. For ease of notation we denote $A_{m,n}(\boldsymbol{X}) \coloneq A_{X_Z^kG_{m,n}}(\boldsymbol{X})$
+We split the induction into two cases.
+
+\textbf{Case 1} : $1 \neq m \geq n $\\
+To prove (a), let $M$ be a $t$-square sub-matrix of $A_{m,n}(\boldsymbol{X})$.
+Since $2m \geq k$, there exists a  $ j \in[m] $ such that $Y_{ij}$ is in at most one column of $M$ (this will be the same column for all $i\in[k]$). Define:
+$$A_j(\boldsymbol{X})\coloneq\left(\begin{array}{c|c}
+&0\\
+&-X_{1j}I_n\\
+A_{m-1,n}(\boldsymbol{X}\smallsetminus \{X_{ij}\}_{i\in[k]})& -X_{2j}I_n\\
+&\vdots\\
+&-X_{kj}I_n\\
+\hline
+& X_{1m+1} \cdots X_{1m+n} \\
+0&\vdots \hphantom{XXXXX} \vdots \\
+&X_{km+1} \cdots X_{km+n}\\
+\end{array}\right)$$
+ Then $M$ is a sub-matrix of $A_j(\boldsymbol{X})$, with at most one column from the right hand side. We split further into four cases:\\
+\textit{(i)} : $M$ is a sub-matrix of $A_{m-1,n}(\boldsymbol{X}\smallsetminus \{X_{ij}\}_{i\in[k]})$. Then by the induction hypothesis, $$|M| \text{ has only terms in }\mathcal{M}_{\times_Z^kG_{m-1,n}}^t \subseteq \mathcal{M}_{\times_Z^kG_{m,n}}^t$$\\
+\textit{(ii)} : $M$ has a zero row or column. This implies its determinant is zero.\\
+\textit{(iii)} : The last rows of $M$ are of the form $0 \cdots0\ X_{im+j}$ for some $i \in [k]$. More than one row of this type implies $|M|=0$. If $M$ has one row of this type then $|M| = \pm X_{im+j}|M'|$ where $M'$ is a sub-matrix of $A_{m-1,n}(\boldsymbol{X}\smallsetminus \{X_{ij}\}_{i\in[k]})$. By the induction hypothesis, $|M'|$ is a $k$-1-nomial with terms in 
+$\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t-1}$, therefore $|M|$ has terms only in $\mathcal{M}_{\times_Z^kG_{m,n}}^t$\\
+\textit{(iv)} : The last column of $M$ is on the right hand side of $A_j(\boldsymbol{X})$. Then $$|M| = \sum_{i \in [k]}\pm X_{ij}|M'_i| \phantom{XX} M'_i \in A_{m-1,n}(\boldsymbol{X}\smallsetminus \{X_{ij}\}_{i\in[k]})$$
+By induction hypothesis, these $|M'_i|$ have terms in $\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t-1}$ therefore $|M|$ has terms only in $\mathcal{M}_{\times_Z^kG_{m,n}}^{t}$.
+\\
+Conversely, for (b), suppose $f \in \mathcal{M}_{\times_Z^kG_{m,n}}^{t}$. Since $2m > t$, there exists a $j \in [m]$ such that $X_{ij}^2 \nmid f$ for all $i \in [k]$. We get four cases:\\
+\textit{(i)} $X_{ij} \nmid f, \forall i \in [k]$ and $X_{im+j} \nmid f, \forall j \in [m], \forall i \in [k]$.
+ie. $t = \lambda$.
+
+Then $f \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t}$ and by the induction hypothesis is a t-minor of $A(m-1,n)$, which is a sub-matrix of $A(m,n)$.\\
+\textit{(ii)} $X_{ij} \nmid f, \forall i \in [k]$ and $X_{im+j'} \mid f$ for some $j' \in [m], i \in[n]$\\
+Claim: $f/X_{im+j'} \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t- 1}$.
+Indeed by the induction hypothesis $\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t- 1}$ contains t-1-minors of the matrix $A(m-1,n)$. In the top half of the matrix, this differs by one block of the form:
+$$\begin{array}{cc}
+ X_{1m+1} \cdots X_{1m+n} \\
+\vdots \hphantom{XXXXX} \vdots \\
+X_{km+1} \cdots X_{km+n}\\
+\end{array}$$
+Then there exists a sub matrix of $A(m-1,n)$, $M$ such that $f/X_{im+j'}$ is a t-1-minor. Consider the matrix:
+$$\left(\begin{array}{c|c}
+M'& \ast\\
+\hline
+0&X_{im+j'}\\
+\end{array}\right)$$
+This has determinant $f$ and is clearly a sub matrix of $A(m,n)$. Therefore $f$ is a minor.\\
+\textit{(iii)} $X_{ij} \mid f$ for some $i \in [k]$
+Define $\alpha \coloneq \{X_{ij}\}_{i \in [k]} \cap f$. (Note i's in this set are distinct by condition on j). Then $f/\alpha \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t- |\alpha|}$. So there exists a sub-matrix of $A(m-1,n)$, $M'$ such that $f/\alpha$ is the determinant. Consider the matrix, with lower right diagonal as elements in $\alpha$: 
+$$\left(\begin{array}{c|ccc}
+M'&& 0\\
+\hline
+&-X_{i_1j}\\
+\ast&&\ddots\\
+&&&-X_{i_lj}
+\end{array}\right)$$
+
+This has determinant $\pm f$, and since $j$ is constant, the bottom right entries can be selected from $A(m,n) \setminus M'$ in this way. Therefore this matrix is a sub-matrix of $A(m,n)$ and $f$ is a minor.
+\\
+\textbf{Case 2} : $n>m$
+reordering
+\end{proof}
+
+\subsection{Computing the Zeta function}
+We follow the method in \cite[$\S$ 4.3]{z}. We need to determine the values of:
+$$\prod_{t=1}^{m+n-1} \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X})\|_{\mathfrak{p}}}$$
+
+Let $\mathbf{x} \in W_{k(m+n)}(\mathfrak{o})$ and $w\in\mathfrak{p}$.
+We split by cases on t:
+\\
+\textbf{Case 1} : $t\leq \text{min}(m,n) =m$. Then
+$$\begin{array}c
+    X^t_{ki}, X^t_{km+j} \in \mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})\\
+    X^{t-1}_{ki}, X^{t-1}_{km+j} \in \mathcal{M}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X})
+\end{array}\phantom{XX}\forall i\in[m],j\in[n],k\in\mathbb{N}$$ 
+$$\mathbf{x} \in W_{k(m+n)}(\mathfrak{o}) \implies \exists x \in \mathbf{x} : |x|_p =1$$
+$$x^k \in \mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \implies \|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \|_{\mathfrak{p}}=1$$
+Thus $\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$ and $\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$.
+\\
+\textbf{Case 2} : $m<t\leq n$. Define $M = \nu_p(x_{11}, \dots, x_{km})$, $N=\nu_p(x_{1m+1},\dots,x_{km+n})$, the minimal valuations over subsets of $\mathbf{x}$. Note one of $M,N$ must be zero since these subsets cover $\mathbf{x} \in W_{k(m+n)}(\mathfrak{o})$.
+\\
+\textit{(i)} $0=M\leq N$. Then
+$$\begin{array}c
+    X^t_{ki} \in \mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})\\
+    X^{t-1}_{ki}\in \mathcal{M}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X})
+\end{array}\phantom{XX}\forall i\in[m],k\in\mathbb{N}$$ 
+Thus $\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$ and $\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$.
+\\
+\textit{(ii)} $0=N<M$. Let $a \in [k], j\in[n]$ such that $\nu_p(x_{am+j})=0$ (this exists since $N=0$), and $b\in[k],i\in[m]$ such that $\nu_p(x_{bk})=M$. The monomial $X^{t-m}_{bk}X^{m}_{am+j}$ has minimal valuation in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Since $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ contains only linear combinations of elements in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ we have that $X^{t-m}_{bk}X^{m}_{am+j}$ has minimal valuation in $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Hence
+$$\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-m)M}$$
+$$\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-1-m)M}$$
+
+For all $w \in \mathfrak{p}$,
+\begin{flalign*}
+\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}&=\text{max}(q^{-(t-m)M},\| w\|_{\mathfrak{p}}q^{-(t-1-m)M})\\
+&=q^{-(t-1-m)M}\text{max}(q^{-M},\|w\|_{\mathfrak{p}})\\
+&=q^{-(t-1-m)M}\|x_{11},\dots,x_{km},w \|_{\mathfrak{p}}\end{flalign*}
+Hence
+$$ \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=\|x_{11},\dots,x_{km},w \|_{\mathfrak{p}}$$
+\\
+\textbf{Case 3} : $t>n $. Define $M$ and $N$ as before.
+\\
+\textit{(i)} $0=M\leq N$. Let $b \in [k], i\in[m]$ such that $\nu_p(x_{bk})=0$ (this exists since $M=0$), and $a\in[k],j\in[n]$ such that $\nu_p(x_{am+j})=N$. Since $t>n$, the monomial $X^n_{bk}X^{t-n}_{am+j}$ has minimal valuation in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Since $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ contains only linear combinations of elements in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ we have that $X^n_{bk}X^{t-n}_{am+j}$ has minimal valuation in $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Hence
+$$\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-n)N}$$
+$$\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-1-n)N}$$
+$$\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-1-n)N}\|x_{1m+1},\dots,x_{km+n},w \|_{\mathfrak{p}}$$
+$$\text{Therefore} \phantom{X} \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=\|x_{1m+1},\dots,x_{km+n},w \|_{\mathfrak{p}}$$
+\\
+\textit{(ii)} $N<M$. Similarly
+$$ \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=\|x_{11},\dots,x_{km},w \|_{\mathfrak{p}}$$
+
+
+We summarise in the following table, 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{cccc}
+\toprule
+     & \multicolumn{3}{c}{$t$-th factor} \\  \cline{2-4}
+     & Case $0=M=N$& Case $0=M< N$ & Case $0=N<M$ \\ \hline
+     $1\leq t\leq m$ &1&1&1\\
+     $m<t\leq n$&1&1&$\|x_{11},\dots,x_{km},w \|_{\mathfrak{p}}$\\
+     $n<t<m+n$&1&$\|x_{1m+1},\dots,x_{km+n},w \|_{\mathfrak{p}}$&$\|x_{11},\dots,x_{km},w \|_{\mathfrak{p}}$\\ \midrule
+\end{tabular}
+    \caption{Values of the $t$-th factor in the product (LABEL) at $\mathbf{x}$}
+    \label{tab:my_label}
+\end{table}
+
+Therefore
+$$\prod_{t=1}^{m+n-1} \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=
+\begin{cases}
+    1\\
+    \|x_{1m+1},\dots,x_{km+n},w \|_{\mathfrak{p}}^{m-1}\\
+    \|x_{11},\dots,x_{km},w \|_{\mathfrak{p}}^{n-1}
+\end{cases}
+\begin{array}{c}
+   0=M=N\\M < N \\ N<M
+\end{array}$$
+
+
+\begin{prop}\emph{\cite[$\S$2]{Lins}}
+    Let $r,s \in \mathbb{C}$, Then for all $ n \in \mathbb{N}$
+    \begin{align*}
+&\int_{w\in \mathfrak{p}^n} |w|^r_\mathfrak{p} d\mu = \frac{q^{-n(r+1)}(1-q^{-1})}{1-q^{-r-1}}\\
+&\int_{(y,\mathbf{x})\in \mathfrak{p}\times \mathfrak{p}^{(n)}}|y|_\mathfrak{p}^r\|x_1,\dots,x_n,y\|_\mathfrak{p}^s d\mu=\frac{(1-q^{-1})(1-q^{-r-n-1})q^{-r-s-n-1}}{(1-q^{-r-s-n-1})(1-q^{-r-1})},
+\end{align*}
+given that the integrals converge absolutely.
+\end{prop}
+
+We split the domain of integration in correspondence to the columns of (TABLE),
+$$\mathcal{Z}^{\text{cc}}_{\times_Z^kG_{m,n}}(s_1,s_2)=(1-q^{mn-s_2})^{-1}(1+Z_1+Z_2+Z_3) $$
+where
+$$Z_1 = \int_{(w, \mathbf{x}) \in \mathfrak{p} \times W_{km} (\mathfrak{o}) \times W_{kn} (\mathfrak{o})} |w|^{(m+n-1)s_1+s_2-mn-2-(k-1)(m+n)}_\mathfrak{p} d\mu$$
+$$Z_2 = \int_{(w, \mathbf{x}) \in \mathfrak{p} \times W_{km} (\mathfrak{o}) \times \mathfrak{p}^{(kn)}} |w|^{(m+n-1)s_1+s_2-mn-2-(k-1)(m+n)}_\mathfrak{p} \|x_{1m+1}, \ldots, x_{km+n}, w\|^{-(m-1)(s_1+1)}_\mathfrak{p} d\mu$$
+$$Z_3 = \int_{(w, \mathbf{x}) \in \mathfrak{p} \times \mathfrak{p}^{(km)} \times W_{kn} (\mathfrak{o})} |w|^{(m+n-1)s_1+s_2-mn-2-(k-1)(m+n)}_\mathfrak{p} \|x_{11}, \ldots, x_{km}, w\|^{-(m-1)(s_1+1)}_\mathfrak{p} d\mu.$$
+
+By (PROP), 
+$$
+Z_1 = (1-q^{km})(1-q^{-kn})\frac{(1-q^{-1})q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)}}{1-q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)}}$$
+
+$$Z_2 = (1-q^{km})\frac{(1-q^{-1})(1-q^{-(m+n-1)s_1 - s_2+mn+1-n+(k-1)m})q^{-ns_1-s_2+mn-n+m+(k-1)m}}{(1-q^{-ns_1-s_2+mn-n+m+(k-1)m})(1-q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)})}$$
+
+$$Z_3 = (1-q^{kn})\frac{(1-q^{-1})(1-q^{-(m+n-1)s_1 - s_2+mn+1-m+(k-1)n})q^{-ms_1-s_2+mn+n-m+(k-1)n}}{(1-q^{-ns_1-s_2+mn+n-m+(k-1)n})(1-q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)})}$$
+
+\subsection{Spare latex}
+$$\prod_{k=1}^{m+n-1} \frac{\|\mathcal{J}_{m,n}^k(\mathbf{X})\cup w\mathcal{J}_{m,n}^{k-1}(\mathbf{X})\|_{\mathfrak{p}}}{\|\mathcal{J}_{m,n}^{k-1}(\mathbf{X})\|_{\mathfrak{p}}}$$
+
+
+$$\mathcal{Z}_{\mathcal{R}}(\rho,\tau) = \frac{1}{1-q^{-1}}\int_{(w,{\bf x})\in p\times W_{N}(\mathfrak{o})}|w|_\mathfrak{p}^\tau\prod_{k=1}^{u_{\mathcal{R}}} \frac{\|\mathcal{F}^k(\mathcal{R}({\bf x}))\cup w\mathcal{F}^{k-1}(\mathcal{R}({\bf x}))\|_\mathfrak{p}^\rho}{\|\mathcal{F}^{k-1}(\mathcal{R}({\bf x}))\|_\mathfrak{p}^\rho}\, d\mu
+$$
+$$
+\mathcal{Z}_{\mathbf{G}_\Lambda(\mathfrak{o})}^{\mathrm{irr}}(s_1,s_2) = \frac{1}{1-q^{r-s_2}}\left(1+\mathcal{Z}_B\left(-\frac{s_1+2}{2},\frac{s_1+2}{2}u_B+s_2-h-1\right)\right) \\
+$$
+$$
+\mathcal{Z}_{\mathbf{G}_\Lambda(\mathfrak{o})}^{\mathrm{cc}}(s_1,s_2) = \frac{1}{1-q^{z-s_2}}\bigg(1+\mathcal{Z}_A\bigg(-(s_1+1),(s_1+1)u_A+s_2-h-1\bigg)\bigg)
+$$
+
+
+$$
+A = -(m+n-1)s_1 - s_2 +mn +1+(k-1)(m+n)\\
+B_M = -(m+n-1)s_1 - s_2 +mn +1-n+(k-1)m\\
+C_M = -ns_1-s_2+mn-n+m+(k-1)m\\
+B_N = -(m+n-1)s_1 - s_2 +mn +1-m+(k-1)n\\
+C_N = -ms_1-s_2+mn-m+n+(k-1)n\\
+Z_1 = (1-q^{-km})(1-q^{-kn})\frac{q^A(1-q^{-1})}{1-q^A}\\
+Z_2 = (1-q^{-km})\frac{q^{C_M}(1-q^{B_M})(1-q^{-1})}{(1-q^A)(1-q^{C_M})}\\
+Z_3 = (1-q^{-kn})\frac{q^{C_N}(1-q^{B_N})(1-q^{-1})}{(1-q^A)(1-q^{C_N})}$$
+
+
+
+\[
+(1 - q^{-km})(1 - q^{-kn}) T_1^{m+n-1} T_2 q^{mn + 1 + (k-1)(m+n)} (1 - q^{-1}) + (1 - q^{-km}) T_1^n T_2 q^{mn - n + m + (k-1)m} (1 - T_1^{m+n-1} T_2 q^{mn + 1 - n + (k-1)m}) (1 - q^{-1}) + (1 - q^{-kn}) T_1^m T_2 q^{mn - m + n + (k-1)n} (1 - T_1^{m+n-1} T_2 q^{mn + 1 - m + (k-1)n}) (1 - q^{-1}) + (1 - T_1^{m+n-1} T_2 q^{mn + 1 + (k-1)(m+n)})(1 - T_1^n T_2 q^{mn - n + m + (k-1)m})(1 - T_1^m T_2 q^{mn - m + n + (k-1)n})
+\]
+
+\newpage
+\printbibliography
+\end{document}
+
+
+
+TO DO:
+prerequisite notation define g,o,p etc.
+basis for commutator matrices
+group to lie alg via scheme/malcev/2.2.2
+elementary divisor?
+Class 3 version of prop 0.3
+Bivariate class 2 version 
+
+Conclusion: stuff on h groups other types, applications of class counting/irred rep functions, graph paper
+
+Papers:
+Zeta 1 https://arxiv.org/pdf/1104.1756
+Zeta 2 https://arxiv.org/pdf/1007.2900
+Zordan https://arxiv.org/pdf/1711.03849
+Graph https://arxiv.org/pdf/1908.09589

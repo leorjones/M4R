@@ -1,0 +1,102 @@
+
+
+In \cite{zeta2}, a link was established between representation zeta functions of groups and Poincaré series encoding properties of their associated Lie lattices. This can then in turn be expressed as a $\mathfrak p$-adic integral, which in some cases allows direct calculation. For the purposes of proving \eqref{kfoldirr}, we only need the Poincaré series expression, however in Section~\ref{zcc} we will directly compute the integral resulting from the conjugacy class zeta function (cf. Theorem \ref{BigTheorem}). 
+
+\subsection{$\mathcal B(\mathbf X)$ and its Poincaré series} For groups of the form $\mathbf G(\mathcal O_\mathfrak p)$, and given conditions on $p$ (the cardinality of the residue field), we can apply the \textit{Kirillov orbit method}. This was developed for $\mathcal T$-groups by Howe~\cite{Howe1977ONRO}, and allows us to construct the irreducible representations via co-adjoint orbits, which can then be expressed as a Poincaré series. For $\mathcal T_2$-groups, this is applicable for all $p$ \cite[Section 2.4]{zeta1}.
+
+Recall that, given a non-zero prime ideal $\mathfrak p$, $\mathfrak o = \mathcal O_\mathfrak p$, and $q=|\mathcal O/\mathfrak p|$. For an $\mathfrak o$-module $M$ let us write $M^\ast \coloneq M \smallsetminus \mathfrak p M$ (when $M$ is trivial we set $\{0\}^\ast = \{0\}$). Then given $d, N \in \mathbb N$, define 
+\begin{align*}
+&W_d(\mathfrak o) = (\mathfrak o^d)^\ast&\text{and}&&W_{d,N}(\mathfrak o)= ((\mathfrak o/\mathfrak p^N)^d)^\ast.
+\end{align*}
+Recall the $\mathcal B$-commutator matrix, from Definition~\ref{comms},
+$$\mathcal B(\mathbf{X)} =\bigg(\sum^d_{l=1}\lambda^l_{ij}X_l\bigg)_{ij}
+        \in \mathrm{Mat}_{r\times r}(\mathfrak o[\mathbf X]).$$
+%
+We define a sub matrix consisting of the last $t$ columns of $\mathcal B(\mathbf{X)}$,
+%
+$$\mathcal B_t(\mathbf{X)}=\big(\mathcal B(\mathbf{X)}_{ij}\big)_{i\in[r],j\in[r-k+1,r]}.$$
+%
+We say a matrix $M \in \mathrm{Mat}_{r\times t}$ has \textit{elementary divisor} type $\mathbf c = (c_1, \dots, c_t)$ if $M$ has the Smith normal form
+$$\begin{pmatrix}
+    \pi^{c_1}&&\\
+    &\ddots&\\
+    &&\pi^{c_t}\\&&
+\end{pmatrix},$$
+i.e.~it is equivalent via elementary row and column operations to the above matrix, where $\pi^{c_1}|\dots|\pi^{c_t}$ and therefore $0\leq c_1\leq\dots\leq c_t$. We denote this $\nu(M) = \mathbf c$. Note that since $\mathcal B(\mathbf{X)}$ is an anti-symmetric matrix, its elementary divisors must come in pairs, with a zero row and column if $r$ is odd. Let $\mathbf{y} \in W_d(\mathfrak o)$. Then the elementary divisors of $\mathcal B(\mathbf{y)}$ are of the form $\mathfrak p^a$ for $a \in \mathbb N \cup \{\infty\}$ (where $\mathfrak p^\infty$ would be an elementary divisor equal to zero), and we have
+%
+\begin{align*}
+    &\nu(\mathcal B(\mathbf y))\coloneq \mathbf a = (a_1,\dots,a_{\lfloor r/2\rfloor}),
+    \\&\tilde\nu(\mathcal B(\mathbf y))\coloneq \mathbf a=\begin{cases}
+    (a_1, a_1, \dots,a_{r/2},a_{r/2}) & \text{if $r$ even}\\
+    (a_1, a_1, \dots,a_{(r-1)/2},a_{(r-1)/2},\infty) & \text{if $r$ odd}.
+\end{cases}
+\end{align*}
+%\textcolor{red}{prerequisite on elementary divisor/within dvr?d needs to depend on rk(G') given in $\mathcal{N}$}
+%Define $W(\mathfrak{o}) \coloneq (\mathfrak{o}^d)^\ast \coloneq (\mathfrak{o}^d \smallsetminus \mathfrak{po}^d)$. For $\mathbf{y} \in W(\mathfrak{o})$, the matrix $\mathcal B(\mathbf{y})$ has elementary divisors of the form $\mathfrak{p}^a$ for $a \in \mathbb{N}_0 \cup \{\infty\}$. pairs/inf
+%
+Let $\overline{\mathbf{y}}$ be the image of $\mathbf{y}$ under the mapping $$(\mathfrak{o}^d)^\ast\longrightarrow ((\mathfrak{o}/\mathfrak{p}^N)^d)^\ast = W_{d,N}(\mathfrak{o}).$$ Then $\mathcal B(\overline{\mathbf y})$ is an antisymmetric matrix over $\mathfrak o \big/\mathfrak p^n$ and we get the elementary divisor type
+%
+$$\nu(\mathcal B(\overline{\mathbf{y}})) =( min\{a_i, n\}_{i \in \{1,\dots,\left\lfloor d/2 \right\rfloor\}}).
+$$
+%
+We define the counting function for the size of subsets of $W_N(\mathfrak o)$, partitioned by divisor type,
+%
+$$\mathcal{N}^\mathfrak{o}_{N, \mathbf{a},\mathbf c} \coloneq \# \{ \mathbf{y} \in W_{d,N}(\mathfrak{o}) \mid \nu(\mathcal B(\mathbf y)) = \mathbf{a}, \tilde\nu(\mathcal B_t(\mathbf y)\cdot\mathrm{diag}(\pi^{b_1},\dots,\pi^{b_t})) = \mathbf c \}.$$
+%
+This allows us to define the following Poincaré series
+$$\mathcal P_{\mathcal B,t, \mathfrak o}(s) \coloneq \sum_{\substack{N \in \mathbb{N}_0,\\ \mathbf{a} \in \mathbb{N}_0^{\lfloor r/2 \rfloor},\, \mathbf{c} \in \mathbb{N}_0^t}} 
+\mathcal{N}^{\mathfrak o}_{N, \mathbf{a}, \mathbf{c}} q^{-\sum_{i=1}^{\lfloor r/2 \rfloor}(N - a_i)s - \sum_{i=1}^t (N - c_i)}.$$
+
+The link between this series and the representation zeta function was first proved in \cite{zeta2}, but the analogue for our specific unipotent group schemes was given in \cite{zeta1}. The case for general nilpotency class ($>3$) is given as follows.
+
+\begin{prop}[{\cite[Proposition 2.9]{zeta1}}] If $p$ is odd or $p=2$, and $c>3$, then 
+    $$\zeta^{\widetilde{\mathrm{irr}}}_{\mathbf G(\mathfrak o)}(s)=\mathcal P_{\mathcal B,t,\mathfrak o}(s).$$
+\end{prop}
+%
+\subsubsection{Nilpotency class 2} In nilpotency class 2 we only need a simpler counting function, which is satisfied without the $p=2$ condition,
+%
+$$\mathcal{N}^\mathfrak{o}_{N, \mathbf{a}} \coloneq \# \{ \mathbf{y} \in W_{d,N}(\mathfrak{o}) \mid \nu(\mathcal B(\mathbf{y})) = \mathbf{a} \}.$$
+%
+We then get the following correspondence.
+%
+\begin{prop}[{\cite[Proposition 2.18]{zeta1}}]\label{p1} Let $\mathbf G(\mathfrak o)$ be of nilpotency class 2. Then, for all primes $p$,
+    $$
+\zeta^{\widetilde{\mathrm{irr}}}_{\mathbf G(\mathfrak{o})}(s) = 
+\sum_{N \in \mathbb{N}_0, \, \mathbf{a} \in \mathbb{N}_0^{ 
+\left\lfloor \frac{r}{2} \right\rfloor}}
+\mathcal{N}_{N,a}^\mathfrak{o} \: q^{
+-\sum_{i=1}^{\lfloor r/2 \rfloor} 
+(N - a_i)s }
+\eqcolon \mathcal{P}_{\mathcal B, \mathfrak{o}}(s).$$
+\end{prop} 
+
+\subsection{Application to $k$-fold central product} We have now in a position to recover the following result, giving the precise relation between the local factors of $G$ and those of $\times_Z^kG$.
+\begin{prop}\label{prop} Let $G$ be a $\mathcal T_2$-group, and denote by $\times^k_ZG$ its $k$-fold central product. Then
+%
+    $$\zeta^{\widetilde{\mathrm{irr}}}_{\times_Z^kG}(s) = \zeta^{\widetilde{\mathrm{irr}}}_{G}(ks).$$
+\end{prop}
+\begin{proof}
+    Via the construction in \ref{malcev}, we have $G= \mathbf G(\mathcal O)$ for some unipotent group scheme $\mathbf G$, and ring of integers $\mathcal O$. For readability we will denote $\times^k_ZG= \times_Z^k\mathbf G(\mathcal O)$ by $H=\mathbf H(\mathcal O)$. This correspondence is necessary to refer to their local factors. 
+    
+    Clearly, since $\mathbf G(\mathcal O)$ has nilpotency class 2, if $\mathcal B_{G}(\mathbf{y})$ has elementary divisor type $\mathbf{a} = \{a_1,\dots,a_n\}$, then $\mathcal B_{H}(\mathbf{y}) = \bigoplus_{i=1}^{k}\mathcal B_{G}(\mathbf{y})$ , will have elementary divisor type $$\mathbf{a}^k = \{\underbrace{a_1,\dots,a_n, a_1,\dots,a_n\}}_{k\text{ copies}}.$$ Then,
+
+\begin{align*}   
+\nu(\mathcal B_G(\mathbf{Y})) = \mathbf{a} &\iff \nu(\mathcal B_{H}(\mathbf{Y})) = \mathbf{a}^k\\
+&\implies \mathcal{N}_{N,\mathbf{a},G}=\mathcal{N}_{N, \mathbf{a}^k, H}\\
+\implies \zeta^{\widetilde{\mathrm{irr}}}_{\mathbf H(\mathfrak o)}(s) &\underset{\ref{p1}}{=} 
+\sum_{N \in \mathbb{N}_0, \, \mathbf{a} \in \mathbb{N}_0^{kn}}\mathcal{N}_{N,\mathbf{a},H} \: q^{-\sum_{i=1}^{kn} (N - a_i)s}\\ &= 
+\sum_{N \in \mathbb{N}_0, \, \mathbf{a} \in \mathbb{N}_0^{n}}\mathcal{N}_{N,\mathbf{a}^k,H} \: q^{-k\sum_{i=1}^{n} (N - a_i)s}\\ &=
+\sum_{N \in \mathbb{N}_0, \, \mathbf{a} \in \mathbb{N}_0^{n}}\mathcal{N}_{N,\mathbf{a},G} \: q^{-k\sum_{i=1}^{n} (N - a_i)s} \underset{\ref{p1}}{=} 
+\zeta^{\widetilde{\mathrm{irr}}}_{\mathbf G(\mathfrak o)}(ks).
+\end{align*}
+This holds for all local factors, hence by the Euler product \eqref{euler},
+
+$$\zeta^{\widetilde{\mathrm{irr}}}_{\times_{Z}^{k}\mathbf G(\mathcal{O})}(s) = \zeta^{\widetilde{\mathrm{irr}}}_{\mathbf G(\mathcal{O})}(ks).$$
+\end{proof}
+%
+This result establishes a strong link between the twist-equivalent representation of $\mathcal T$-groups and their central products. We will now investigate how this relation extends to both the representation and conjugacy class bivariate zeta functions, however it would be interesting to see whether Proposition \ref{prop} or an analogous statement holds in the more complex case of nilpotency class greater than 2.
+
+% Since $|\mathcal{O}:I|$ is independent of our choice of group scheme, directly applying Proposition \ref{prop}  gives
+% \begin{coroll}\label{ZIRR}
+%     $$\mathcal Z^{\mathrm{irr}}_{\times^k_ZG_{m,n}}(s_1,s_2) = \mathcal Z^{\mathrm{irr}}_{G_{m,n}}(ks_1,s_2)$$
+% \end{coroll}

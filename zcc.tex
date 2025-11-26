@@ -1,0 +1,349 @@
+\subsection{Computing the commutator matrix}
+Recall the family of $\mathbb Z$-Lie lattices 
+$$\mathcal{G}_{n} = \langle x_{k}, y_{ij} \mid [x_{i}, x_{n+j}] = y_{ij}, \ 1 \leq k \leq 2n, \ 1 \leq i, j \leq n \rangle.$$
+%
+We can generalise this to a larger family
+%
+$$\mathcal G_{m,n} \coloneq \left\langle x_1,\dots,x_{m+n}, \{z_{ij} \}_{i \in[m], j \in [n]} \:| \:[x_i,x_{m+j}] = z_{ij}\right\rangle.$$
+%
+Note that by setting $m=n$ we recover $\mathcal G_n$. Denote the group scheme $\mathbf{G}_{\mathcal G_{m,n}}(\mathcal O)$ by $G_{m,n}$. Its $k$-fold central product has presentation
+
+\begin{equation}\label{hi}
+\times_Z^k G_{m,n} = \stretchleftright[600]{\langle}
+{\begin{array}{cc|c} x_{1\, 1}, \dots,x_{1\, m+n} &&[x_{1\, i},x_{1\, m+j}] = z_{ij} \\
+\ \ \ \vdots \phantom{XXXXX} \vdots & \{z_{ij}\}_{i \in [m],j\in[n]}  & \phantom{XXXX}\vdots \\
+x_{k\, 1}, \dots,x_{k\,m+n} &&[x_{k\, i},x_{k\, m+j}]=z_{ij}
+\end{array}}{\rangle}.\end{equation}
+
+Recall the commutator matrix from \ref{comms},
+$$
+\left( \mathcal A(\mathbf{X}) \right)_{ij} = \sum_{l=1}^{r}\lambda^j_{il}X_l \ \
+\begin{array}{c}
+    i \in [r]\\j\in[d]
+\end{array} \ \in \mathrm{Mat}_{r\times d}(\mathfrak{o}[\mathbf{X}]).
+$$
+
+\begin{prop}[{\cite[Section 4.1]{z}}] The $\mathcal A$-commutator matrix, for groups of type $G_{m,n}$ has the following form
+\customsmall
+$$
+\mathcal A_{G_{m,n}}(\mathbf{X})=\begin{pmatrix} 
+X_{m+1} \dots X_{m+n} && \\
+& \ddots & \\
+&& X_{m+1} \dots X_{m+n} \\
+-X_1\cdot \mathbf{I}_n &\dots& -X_m \cdot \mathbf{I}_n
+\end{pmatrix} \ \in Mat_{m+n,mn}(\mathfrak{o}[\mathbf{X}]),
+$$ 
+\normalsize
+where $\mathbf{I}_n$ denotes the $n\times n$ identity matrix and $\mathbf{X}$ is the $(m+n)$-tuple $X_1,\dots,X_{m+n}$. 
+
+\emph{We recall the proof of this, for completeness.}
+\end{prop}
+\begin{proof}
+Recall our basis for $G_{m,n}'$ is $z_{1\, 1}, \dots,z_{m\,n}$. We can relabel the indices so that it is ordered more clearly, $(i-1)n+j$, where $i \in [m], j \in [n]$. By substituting the correct values for $G_{m,n}$, we obtain 
+%
+$$\big(\mathcal A(\mathbf X)\big)_{ik}= \sum_{j=1}^{m+n}\lambda_{ij}^k\mathbf X_j\phantom{XX}\begin{array}{l}
+i \in [m+n]\\k\in[mn]
+\end{array}.$$
+%
+Consider the first $m$ rows. Clearly when $j\leq m$, $[x_i,x_j]$ is not in the presentation, hence $\lambda_{ij}^k=0$. We can therefore consider the terms $\lambda_{i,m+j}^k$ where $j\in[n]$. Since $[x_i, x_{m+j}]=z_{ij}$, these are non zero precisely when $k=(i-1)n + j$ (our index equivalent of $z_{ij}$) and they are equal to $1$ in this case. Hence
+%
+$$\big(\mathcal A(\mathbf X)\big)_{ik}= \begin{cases}
+    X_{m+j}&\text{ when }k=(i-1)n+j\\0 &\text{ else}
+\end{cases}.$$
+%
+Therefore, in row $i \in [m]$, we get sequential entries $X_{m+1}, \dots,X_{m+n}$ (as $j$ varies in $[n]$) and zeros elsewhere. This sequence begins in the column where $k$ corresponds to $j=1$, ie $k=(i-1)n+1$.
+
+Now consider the last $n$ rows. We let $i\in[n]$ and consider rows $m+i$. By anti-symmetry, $[x_{m+i},x_j]= -[x_j,x_{m+i}]=-z_{ji}$. The middle term is non-zero precisely when $j\in[m]$ and $k=(j-1)n+i$, and is equal to $-1$ in this case. Hence
+%
+$$\big(\mathcal A(\mathbf X)\big)_{m+i,k}= \begin{cases}
+    -X_{j}=-X_{\frac{k-i+n}{n}}&\text{ when }j\in[m], k=(j-1)n+i\\0 &\text{ else}
+\end{cases}.$$
+%
+By iterating over $j$, it is clear to see that we get copies of $-X_j\mathbf I_n$ in columns $(i-1)n+1$ to $(i-1)n+j$. The required matrix follows.
+\end{proof}
+
+\subsection{$\mathcal A(\mathbf X)$ for central products}
+Similarly to Proposition \ref{kfoldBmatrix}, we can easily extend this structure to $k$-fold central products.
+\begin{prop} The $\mathcal A$-commutator matrix for groups $\times^k_ZG_{m,n}$ has the following form
+    $$\mathcal A_{\times_Z^kG_{m,n}}(\overline{\mathbf{X}})=\begin{pmatrix}
+\mathcal A_{G_{m,n}}(\mathbf{X_1}) \\ \vdots \\ \mathcal A_{G_{m,n}}(\mathbf{X_k})
+\end{pmatrix}
+\begin{rcases} \\ \\ \\ \\
+\end{rcases}\text{k copies}
+$$
+where $\overline{\mathbf{X}}= (\underbrace{X_{1\,1},\dots,X_{1\,m+n}}_{\mathbf{X_1}},\dots,\underbrace{X_{k\,1},\dots,X_{k\,m+n}}_{\mathbf{X_k}}).$
+\end{prop}
+\begin{proof}
+    By the definition of $\mathcal A(\mathbf{X})$, its columns correspond to the basis elements of the centre. The central elements are invariant under the central product quotient, and hence they are formed by the commutator of the same elements from  different copies of $G$ in $\times_Z^kG$. Note that this specific structure (row and column ordering) is with respect to the basis order in the presentation \eqref{hi}.
+\end{proof}
+
+For convenience, we will now consider the following reordered basis for $\times_Z^k G_{m,n}$,
+\customsmall
+$$\stretchleftright[600]{\langle}
+{\begin{array}{ccc|c} x_{1\,1}, \dots,x_{1\, m} &x_{1\,m+1},\dots,x_{1\,m+n}&&[x_{1\,i},x_{1\,m+j}] = z_{ij} \\
+\ \ \ \vdots \phantom{XXXXX} \vdots && \{z_{ij}\}_{i \in [m],j\in[n]}  & \phantom{XXXX}\vdots \\
+x_{k\,1}, \dots,x_{k\,m} &x_{k\,m+1},\dots,x_{k\,m+n}&&[x_{k\,i},x_{k\,m+j}]=z_{ij}
+\end{array}}{\rangle}.$$
+\normalsize
+With the respective commutator matrix \customsmall$\mathcal A_{\times_Z^kG_{m,n}}(\mathbf{X})\in Mat_{k(m+n),mn}(\mathfrak{o}[\mathbf{X}])$\normalsize,
+\begin{align*}
+\mathcal A_{\times_Z^kG_{m,n}}(\mathbf{X})=\begin{pmatrix} 
+X_{1\,m+1} \dots X_{1\,m+n} \\
+\vdots \hphantom{XXXXX} \vdots \\
+X_{k\,m+1} \dots X_{k\,m+n}\\
+& \ddots & \\
+&& X_{1\,m+1} \dots X_{1\,m+n} \\
+&&\vdots \hphantom{XXXXX} \vdots \\
+&&X_{k\,m+1} \dots X_{k\,m+n}\\
+-X_{1\,1}\cdot \mathbf{I}_n &\cdots& -X_{1\,m} \cdot \mathbf{I}_n\\
+\vdots && \vdots \\
+-X_{k\,1}\cdot \mathbf{I}_n &\cdots& -X_{k\,m} \cdot \mathbf{I}_n\\
+\end{pmatrix}. 
+\end{align*}
+
+\subsection{Ideals of $t$-minors} This section will focus on computing the $t$-minors of $\mathcal A_{\times_Z^kG_{m,n}}(\mathbf{X})$, moreover showing that they can be generated from a set of monomials, allowing us to compute the integral in Section \ref{biv}.
+\begin{define}
+    We define $\mathcal{M}_{\times_Z^kG_{m,n}}^t$ as the set of monomials
+    $$X_{i_1j_1}\dots X_{i_{\lambda}j_{\lambda}}X_{p_1\,m+q_1}\dots X_{p_{\omega}\,m+q_{\omega}},$$
+    where $\lambda \in [n], \ \omega \in[m] $ such that  $\lambda +\omega = t$, $i_1,\dots,i_\lambda,p_1,\dots,p_\omega \in [k]$, $j_1,\dots,j_\lambda \in [m]$, and $q_1,\dots,q_\omega\in[n]$. Note that $i,j$ and $pm+q$ are not necessarily pairwise distinct.
+
+
+\end{define}
+Analogously to \cite[Lemma 4.8]{z}, we have the following result.
+\begin{lemma}Let $f$ be the determinant of a $t$-minor of $\mathcal A_{\times^k_ZG_{m,n}}(\mathbf{X})$ formed by selecting $\omega$ rows from the first $k\cdot m$ rows and $\lambda$ rows from the remaining $k\cdot n$ rows of $\mathcal A_{\times^k_ZG_{m,n}}(\mathbf{X})$. Then $f$ is homogenous of degree $\omega$ with respect to $X_{1\,m+1}, \dots X_{k\,m+n}$ and homogenous of degree $\lambda$ with respect to $X_{1\,1},\dots,X_{k\,m}$.
+\end{lemma}
+\begin{proof} Let $a \in [m+1,m+n]$, $b\in [m]$, and $c \in [k]$, so that $X_{c\,a}$ is a generic element in $X_{1\,m+1},\dots,X_{k\,m+n}$, and $X_{c\,b}$ is a generic element in $X_{1\,1},\dots,X_{k\,m}$.
+    From our basis reordering above, the first $k\cdot m$ rows of $\mathcal A_{\times^k_ZG_{m,n}}(\mathbf{X})$ have entries $X_{c\,a}$, and the remaining $k\cdot n$ rows have entries $X_{c\,b}$. Let $A= \big(a_{ij}\big)$ be the $t$-minor such that $\mathrm{det}(A)=f$. Then, the first $\omega$ rows have entries $X_{c\,a}$ and the other $\lambda$ rows have entries $X_{c\,b}$.
+    Recall the Leibniz formula for the determinant
+    $$\det(A) = \sum_{\sigma \in S_n} \text{sgn}(\sigma) \prod_{i=1}^n a_{i, \sigma(i)}.$$
+    Then
+    $$a_{i,\sigma(i)}= \begin{cases}
+        X_{c\,a} & i \in [\omega]\\
+        X_{c\,b} & i \in [\omega,\omega+\lambda].
+    \end{cases}$$
+    Hence the product of these $a_{i, \sigma(i)}$ (if non-zero) is homogenous of degree $\omega$ in $X_{1\,m+1},  \dots,\allowbreak X_{k\,m+n}$, and homogenous of degree $\lambda$ in $X_{1\,1},\dots,X_{k\,m}$. The sum of these (determinant of $A$) therefore also respects these conditions.
+\end{proof}
+
+In order compute the integral in Proposition~\ref{igusa}, we need the ideal generated by the $t$-minors of $\mathcal A_{\times_Z^kG_{m,n}}(\mathbf{X})$. 
+We claim that a smaller set of monomials generates this ideal. This is a modified version of the proof in \cite[Proposition 4.9]{z}, given for $G_{m,n}$. We use the terminology \textit{$k$-sums} to refer to sums of up to $k$ elements from a given set. 
+\begin{prop}
+    The set of monomials $\mathcal{M}_{\times_Z^kG_{m,n}}^t$
+    \begin{enumerate}
+        \item generates (up to sign) all minors of $\mathcal A_{\times^k_ZG_{m,n}}$ as $k$-sums from \\$\mathcal{M}_{\times_Z^kG_{m,n}}^t$ \label{prop:i}
+        \item contains only monomials of $\mathcal A_{\times^k_ZG_{m,n}}$ \label{prop:ii}
+    \end{enumerate}
+
+\end{prop}
+\begin{proof}  For ease of notation, we denote $A_{m,n}(\mathbf{X}) \coloneq \mathcal A_{\times_Z^kG_{m,n}}(\mathbf{X})$. Following the proof in \cite[Proposition 4.9]{z} we proceed by induction on $m+n$ while keeping $k$ constant.
+The base case is $m=n=1$, with the following commutator matrix,
+$$A_{1,1}(\mathbf{X})=
+\begin{pmatrix}X_{1\,2}\\\vdots\\X_{k\,2}\\-X_{1\,1}\\\vdots\\-X_{k\,1}\end{pmatrix}.$$
+The only minors of this matrix are the individual terms, which are precisely the elements (up to sign) of $\mathcal{M}_{\times_Z^kG_{1,1}}^1$, hence the proposition holds. We split the induction into two cases.
+\\
+\textbf{Case 1} : $1 \neq m \geq n $\\
+To prove \ref{prop:i}, let $M$ be a $t$-square submatrix of $A_{m,n}(\mathbf{X})$.
+Since $2m > t$, there exists a  $ j \in[m] $ such that $X_{ij}$ is in at most one column of $M$ (this will be the same column for all $i\in[k]$). Define 
+$$A_j(\mathbf{X})\coloneq\left(\begin{array}{c|c}
+&0\\
+&-X_{1\,j}\mathbf{I}_n\\
+A_{m-1,n}(\mathbf{X}\smallsetminus \{X_{ij}\}_{i\in[k]})& -X_{2\,j}\mathbf{I}_n\\
+&\vdots\\
+&-X_{k\,j}\mathbf{I}_n\\
+\hline
+& X_{1\,m+1} \dots X_{1\,m+n} \\
+0&\vdots \hphantom{XXXXX} \vdots \\
+&X_{k\,m+1} \dots X_{k\,m+n}\\
+\end{array}\right),$$
+where, for a given $j$, $\mathbf{X}\smallsetminus \{X_{ij}\}_{i\in[k]}$ denotes the $(k\cdot(m+n-1))$-tuple obtained by removing $\{X_{1\,j},\dots,X_{k\,j}\}$ from $\mathbf{X}$. Then $M$ is a submatrix of $A_j(\mathbf{X})$, with at most one column from the right-hand side. We split this step into four further cases.
+ \begin{enumerate}
+     \item \text{$M$ is a submatrix of $A_{m-1,n}(\mathbf{X}\smallsetminus \{X_{ij}\}_{i\in[k]})$}. Then by the induction hypothesis, $|M|$ is a $k$-sum from $\mathcal{M}_{\times_Z^kG_{m-1,n}}^t \subseteq \mathcal{M}_{\times_Z^kG_{m,n}}^t$.
+     \item  \text{$M$ has a zero row or column}. This implies that its determinant is zero.
+     \item \text{The last rows of $M$ are of the form $0 \dots0\ X_{i\,m+j}$ for some $i \in [k]$}. \\More than one row of this type implies $|M|=0$. If $M$ has one row of this type then $|M| = \pm X_{i\,m+j}|M'|$ where $M'$ is a submatrix of $A_{m-1,n}(\mathbf{X}\smallsetminus \{X_{ij}\}_{i\in[k]})$. By the induction hypothesis, $|M'|$ is a $(k-1)$-sum from $\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t-1}$, therefore $|M|$ is a $k$-sum from $\mathcal{M}_{\times_Z^kG_{m,n}}^t$.
+    \item \text{The last column of $M$ is in the right half of $A_j(\mathbf{X})$}. Then \begin{align*}&|M| = \sum_{i \in [k]}\pm X_{ij}|M'_i| &\text{and}&& M'_i \in A_{m-1,n}(\mathbf{X}\smallsetminus \{X_{ij}\}_{i\in[k]}).\end{align*}
+By induction hypothesis, these $|M'_i|$ are $(k-1)$-sums in $\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t-1}$ therefore $|M|$ is a $k$-sum from $\mathcal{M}_{\times_Z^kG_{m,n}}^{t}$.
+ \end{enumerate}
+Conversely, for \ref{prop:ii}, suppose $f \in \mathcal{M}_{\times_Z^kG_{m,n}}^{t}$. Since $2m > t$, there exists a $j \in [m]$ such that $X_{ij}^2 \nmid f$ for all $i \in [k]$. We split this step into four further cases.
+\begin{enumerate}
+    \item \text{$X_{ij} \nmid f$ for all $i \in [k]$, and $X_{im+j} \nmid f$ for all $j \in [m],i \in [k]$}, i.e.~$t = \lambda$. Then $f \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t}$ and by the induction hypothesis it is a $t$-minor of $A_{m-1,n}(\mathbf X)$, which is a submatrix of $A_{m,n}(\mathbf X)$.
+    \item \text{$X_{ij} \nmid f$ for all $i \in [k]$, and $X_{i\,m+j'} \mid f$ for some $j' \in [n]$ and $i \in[k]$}. \allowbreak
+    By the definition of our monomial set, there are at most $\omega \in [m]$ factors of the form $X_{i\,m+j'}$ in $f$. Therefore there is at most one $j' \in [n]$ such that $X_{i\,m+j'}$ appears $m$ times in $f$ (varying over all choices of $i$). Note that $m\geq n$ and $t\neq \lambda$ (otherwise we are in the above case), so by considering $\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t}$ we do not limit our choice of factors $X_{ij}$ in $f$.
+    
+    If there is no such $j'$ then $f \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t}$ (after relabelling variables) and by the induction hypothesis is a $t$-minor of $A_{m-1,n}(\mathbf X)$ which is a submatrix of $ A_{m,n}(\mathbf X)$. If such a $j'$ exists then we claim that 
+    $$\frac{f}{X_{i\,m+j'}} \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t- 1}.$$
+    This follows from the uniqueness of $j'$ and our note above. Visually, in the top half of the matrix, $A_{m-1,n}(\mathbf X)$ differs from $A_{m,n}(\mathbf X)$ by one block of the form
+$$\begin{array}{cc}
+ X_{1\,m+1} \dots X_{1\,m+n} \\
+\vdots \hphantom{XXXXX} \vdots \\
+X_{k\,m+1} \dots X_{k\,m+n}\\\end{array}$$
+and by our conditions, $X_{i\,m+j'}$ is the only factor appearing $m$ times (i.e.~in all blocks). Thus there exists a submatrix of $A_{m-1,n}$, $M'$ such that $f/X_{i\,m+j'}$ is a $(t-1)$-minor. Consider the matrix
+$$\left(\begin{array}{c|c}
+M'& \ast\\
+\hline
+0&X_{i\,m+j'}\\
+\end{array}\right).$$
+This has determinant $f$ and is clearly a submatrix of $A_{m,n}$. Therefore $f$ is a minor.
+    \item $X_{ij} \mid f$ for some $i \in [k]$
+Define $\alpha$ as $\{X_{ij}\}_{i \in [k]} \cap f$. Note the $i$'s in this set are distinct by the condition on $j$, and $\omega \in [m-|\alpha|]$, so considering $\mathcal{M}_{\times_Z^kG_{m-1,n}}^{t}$ does not limit our choice of factors $X_{i\,m+j}$. Then 
+$$\frac{f}{\alpha} \in \mathcal{M}_{\times_Z^kG_{m-1,n}}^{t- |\alpha|}.$$ Hence there exists a submatrix $M'$ of $A_{m-1,n}$ such that $f/\alpha$ is its determinant. Consider the following matrix, with the lower right diagonal as elements in $\alpha$, 
+$$\left(\begin{array}{c|ccc}
+M'&& 0\\
+\hline
+&-X_{i_1\,j}\\
+\ast&&\ddots\\
+&&&-X_{i_l\,j}
+\end{array}\right).$$
+
+This has determinant $\pm f$, and since $j$ is constant, the bottom right entries can be selected from $A_{m,n}\smallsetminus M'$ in this way. Therefore this matrix is a submatrix of $A_{m,n}$ and $f$ is a minor.
+\end{enumerate}
+\textbf{Case 2} : $1\neq n>m$\\
+There exist two permutation matrices $P, Q$ such that $P\cdot A_{m,n}(\mathbf{X})\cdot Q$ equals
+\small
+$$\begin{pmatrix} 
+X_{1\,2m+1} \dots X_{1\,m+n} & X_{1\,1} \dots X_{1\,m} \\
+\vdots \hphantom{XXXXX} \vdots&\vdots \hphantom{XXXXX} \vdots \\
+X_{k\,2m+1} \dots X_{k\,m+n}&X_{k\,1} \dots X_{k\,m}\\
+&& \ddots & \\
+&&&X_{1\,2m+1} \dots X_{1\,m+n} & X_{1\,1} \dots X_{1\,m} \\
+&&&\vdots \hphantom{XXXXX} \vdots&\vdots \hphantom{XXXXX} \vdots \\
+&&&X_{k\,2m+1} \dots X_{k\,m+n}&X_{k\,1} \dots X_{k\,m}\\
+\multicolumn{2}{c}{-X_{1\,m+1}\cdot \mathbf{I}_n} & \cdots & \multicolumn{2}{c}{ -X_{1\,2m} \cdot \mathbf{I}_n}\\
+\multicolumn{2}{c}{\vdots} &  &\multicolumn{2}{c}{\vdots}\\
+\multicolumn{2}{c}{-X_{k\,m+1}\cdot \mathbf{I}_n} &\cdots& \multicolumn{2}{c}{-X_{k\,2m} \cdot \mathbf{I}_n}\\
+\end{pmatrix}$$\\
+\normalsize
+\begin{multline*}
+=A_{n,m}\bigg(\underbrace{\{-X_{i\,m+1}\}_{i\in k}, \dots, \{-X_{i\,2m}\}_{i\in k}}_{\text{lower half terms}},\\\underbrace{\{-X_{i\,2m+1}\}_{i\in k}, \dots, \{-X_{i\,m+n}\}_{i\in k},\{-X_{i\,1}\}_{i\in k},\dots, \{-X_{i\,m}\}_{i\in k}}_{\text
+{upper half terms}}\bigg)
+.\end{multline*}
+%
+Therefore this case follows from the first after relabelling the variables. Note that this also follows from the fact that $G_{m,n} \simeq G_{n,m}$.
+\end{proof}
+
+\subsection{Computing the bivariate conjugacy class zeta function}
+We follow the method in \cite[Section 4.3]{z}. We need to determine the values of
+\begin{equation}\label{a}
+\prod_{t=1}^{m+n-1} \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X})\|_{\mathfrak{p}}} .
+\end{equation}
+
+
+Let $\mathbf{x} \in W_{k(m+n)}(\mathfrak{o})$ and $w\in\mathfrak{p}$. Without loss of generality, we may assume $m \leq n$. We split the induction by cases on $t$.
+\\ \phantom{X} \\
+\textbf{Case 1} : $t\leq \text{min}(m,n) =m$. Then
+$$\begin{aligned}
+    X^t_{a\,i}, X^t_{a\,m+j} \in \mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X}),\\
+    X^{t-1}_{a\,i}, X^{t-1}_{a\,m+j} \in \mathcal{M}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X}),
+\end{aligned}\phantom{XX}\forall i\in[m],j\in[n],a\in[k].$$ 
+By definition
+$\mathbf{x} \in W_{k(m+n)}(\mathfrak{o}) \implies \exists x \in \mathbf{x} : |x|_p =1$. Then,
+$$ x^t \in \mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \implies \|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \|_{\mathfrak{p}}=1.$$
+Thus $\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$ and $\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$.
+\\ \phantom{X} \\
+\textbf{Case 2} : $m<t\leq n$. Define $$M = \nu_p(x_{1\,1}, \dots, x_{k\,m}),\ N=\nu_p(x_{1\,m+1},\dots,x_{k\,m+n}),$$ the minimal valuations over subsets of $\mathbf{x}$. Note that one of $M,N$ must be zero since these subsets cover $\mathbf{x} \in W_{k(m+n)}(\mathfrak{o})$. We split this step into two further cases.
+\begin{enumerate}
+\item $0=M\leq N$. Then
+$$\begin{aligned}
+    X^t_{a\,i} \in \mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X}),\\
+    X^{t-1}_{a\,i}\in \mathcal{M}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X}) \subseteq \mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{X}),
+\end{aligned}\phantom{XX}\forall i\in[m],a\in[k].$$ 
+Thus $\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x}) \cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$ and $\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=1$.
+\item $0=N<M$. Let $a \in [k], j\in[n]$ such that $\nu_p(x_{a\,m+j})=0$ (this exists since $N=0$), and $b\in[k],i\in[m]$ such that $\nu_p(x_{b\,k})=M$. The monomial $X^{t-m}_{b\,k}X^{m}_{a\,m+j}$ has minimal valuation among elements in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Since $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ contains only $k$-sums of $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ we have that $X^{t-m}_{b\,k}X^{m}_{a\,m+j}$ has minimal valuation among elements in $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Hence
+\begin{align*}
+&\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-m)M},\\
+&\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}=q^{-(t-1-m)M}.\end{align*}
+For all $w \in \mathfrak{p}$,
+\begin{align*}
+\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}&=\text{max}(q^{-(t-m)M},\| w\|_{\mathfrak{p}}q^{-(t-1-m)M})\\
+&=q^{-(t-1-m)M}\text{max}(q^{-M},\|w\|_{\mathfrak{p}})\\
+&=q^{-(t-1-m)M}\|x_{1\,1},\dots,x_{k\,m},w \|_{\mathfrak{p}}.\end{align*}
+Hence
+$$ \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=\|x_{1\,1},\dots,x_{k\,m},w \|_{\mathfrak{p}}.$$
+\end{enumerate}
+\textbf{Case 3} : $t>n $. Define $M$ and $N$ as before. We split this step by cases.
+\begin{enumerate}
+\item $0=M\leq N$. Let $b \in [k], i\in[m]$ such that $\nu_p(x_{b\,k})=0$ (this exists since $M=0$), and $a\in[k],j\in[n]$ such that $\nu_p(x_{a\,m+j})=N$. Since $t>n$, the monomial $X^n_{b\,k}X^{t-n}_{a\,m+j}$ has minimal valuation in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Since $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ contains only linear combinations of elements in $\mathcal{M}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ we have that $X^n_{b\,k}X^{t-n}_{a\,m+j}$ has minimal valuation in $\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{X})$ evaluated at $\mathbf{x}$. Hence
+\begin{align*}
+\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\|_{\mathfrak{p}}&=q^{-(t-n)N},\\
+\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}&=q^{-(t-1-n)N},\\
+\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t}(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}&=q^{-(t-1-n)N}\|x_{1\,m+1},\dots,x_{k\,m+n},w \|_{\mathfrak{p}}.\end{align*}
+
+$$\text{Therefore} \phantom{X} \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=\|x_{1\,m+1},\dots,x_{k\,m+n},w \|_{\mathfrak{p}}.$$
+\item $N<M$. Similarly,
+$$ \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}=\|x_{1\,1},\dots,x_{k\,m},w \|_{\mathfrak{p}}.$$\end{enumerate}
+
+We summarise in these results in Table \ref{tableu1}.
+%\small
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{cccc}
+\toprule
+     & \multicolumn{3}{c}{$t$-th factor} \\  \cline{2-4}
+         & $M,N=0$&     $0=M< N$ & $0=N<M$ \\ \hline
+     $1\leq t\leq m$ &1&1&1\\
+     $m<t\leq n$&1&1&$\|x_{1\,1},\dots,x_{k\,m},w \|_{\mathfrak{p}}$\\
+     $n<t<m+n$&1&$\|x_{1\,m+1},\dots,x_{k\,m+n},w \|_{\mathfrak{p}}$&$\|x_{1\,1},\dots,x_{k\,m},w \|_{\mathfrak{p}}$\\ \midrule
+\end{tabular}%\normalsize
+    \caption{Values of the $t$-th factor in the product \ref{a} at $\mathbf{x}$}
+\label{tableu1}\end{table}
+%\FloatBarrier
+\\Therefore,
+\begin{multline*}
+\prod_{t=1}^{m+n-1} \frac{\|\mathcal{J}_{\times_Z^kG_{m,n}}^t(\mathbf{x})\cup w\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}{\|\mathcal{J}_{\times_Z^kG_{m,n}}^{t-1}(\mathbf{x})\|_{\mathfrak{p}}}\\
+= \begin{cases}
+    1&0=M =N\\
+    \|x_{1\,m+1},\dots,x_{k\,m+n},w \|_{\mathfrak{p}}^{m-1}&M<N\\
+    \|x_{1\,1},\dots,x_{k\,m},w \|_{\mathfrak{p}}^{n-1}&N<M.
+\end{cases}
+\end{multline*}
+
+In order to compute the integral we will need the following result.
+\begin{prop}[{\cite[Section 2.1]{LinsII}}]\label{Lins}
+    Let $r,s \in \mathbb{C}$, Then for all $ n \in \mathbb{N}$
+    \begin{align*}
+&\int_{w\in \mathfrak{p}^n} |w|^r_\mathfrak{p} d\mu = \frac{q^{-n(r+1)}(1-q^{-1})}{1-q^{-r-1}},\\
+&\int_{(y,\mathbf{x})\in \mathfrak{p}\times \mathfrak{p}^{(n)}}|y|_\mathfrak{p}^r\|x_1,\dots,x_n,y\|_\mathfrak{p}^s d\mu=\frac{(1-q^{-1})(1-q^{-r-n-1})q^{-r-s-n-1}}{(1-q^{-r-s-n-1})(1-q^{-r-1})},
+\end{align*}
+given that the integrals converge absolutely.
+\end{prop}
+
+We split the domain of integration in correspondence to the columns of the above table,
+\begin{equation}\label{q}
+    \mathcal{Z}^{\text{cc}}_{\times_Z^kG_{m,n}}(s_1,s_2)=(1-q^{mn-s_2})^{-1}(1+\frac{1}{1-q^{-1}}(Z_1+Z_2+Z_3)),
+\end{equation} 
+where
+\begin{align*}
+&Z_1 = \int_{(w, \mathbf{x}) \in \mathfrak{p} \times W_{km} (\mathfrak{o}) \times W_{kn} (\mathfrak{o})} |w|^{\tau}_\mathfrak{p} d\mu,\\
+&Z_2 = \int_{(w, \mathbf{x}) \in \mathfrak{p} \times W_{km} (\mathfrak{o}) \times \mathfrak{p}^{(kn)}} |w|^{\tau}_\mathfrak{p} \|x_{1\,m+1}, \ldots, x_{k\,m+n}, w\|^{-(m-1)(s_1+1)}_\mathfrak{p} d\mu,\\
+&Z_3 = \int_{(w, \mathbf{x}) \in \mathfrak{p} \times \mathfrak{p}^{(km)} \times W_{kn} (\mathfrak{o})} |w|^{\tau}_\mathfrak{p} \|x_{1\,1}, \ldots, x_{k\,m}, w\|^{-(n-1)(s_1+1)}_\mathfrak{p} d\mu,\\
+&\text{and }\ \tau = (m+n-1)s_1+s_2-mn-2-(k-1)(m+n).
+\end{align*}
+
+By Proposition \ref{Lins}, 
+\small
+$$\begin{aligned}
+Z_1 =& (1-q^{km})(1-q^{-kn})\\&\cdot\frac{(1-q^{-1})q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)}}{1-q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)}},
+\\
+Z_2 =& (1-q^{km})\\&\cdot\frac{(1-q^{-1})(1-q^{-(m+n-1)s_1 - s_2+mn+1-n+(k-1)m})q^{-ns_1-s_2+mn-n+m+(k-1)m}}{(1-q^{-ns_1-s_2+mn-n+m+(k-1)m})(1-q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)})},
+\\
+Z_3 =& (1-q^{kn})\\&\cdot\frac{(1-q^{-1})(1-q^{-(m+n-1)s_1 - s_2+mn+1-m+(k-1)n})q^{-ms_1-s_2+mn+n-m+(k-1)n}}{(1-q^{-ns_1-s_2+mn+n-m+(k-1)n})(1-q^{-(m+n-1)s_1 - s_2+mn+1+(k-1)(m+n)})}.
+\end{aligned}$$\normalsize
+
+
+Applying these to \ref{q} and substituting $T_1 \coloneq q^{-s_1}$ and $T_2 \coloneq q^{-s_2}$ (see \nameref{app}), we get that
+\begin{align*}
+    N^{\text{cc}}_{m,n;q}(T_1,T_2)=& \ T_1q^{m+n}q^{(k-1)(m+n)} 
+\\&+\ q^{2mn}(q^{kn}+q^{km}-q^{k(m+n)})\ T_1^{m+n+1}T_2^2q^{(k-1)(m+n)} 
+\\&+\ q^{mn+1}(1-q^{km}-q^{kn})\ T_1^{m+n}T_2q^{(k-1)(m+n)} 
+\\&+\ q^{2mn+1}(q^nT_1^{2m+n}+q^mT_1^{2n+m})\ T_2^2q^{2(k-1)(m+n)} 
+\\&-\ q^{mn}(q^nT_1^{m+1}+q^mT_1^{n+1})T_2q^{(k-1)(m+n)} 
+\\&-\ T_1^{2(m+n)}T_2^3q^{3mn+1}q^{2(k-1)(m+n)} 
+    \\    D^{\text{cc}}_{m,n;q}(T_1,T_2)=&\ T_1 q^{m+n}q^{(k-1)(m+n)} (1 - T_1^{m+n-1} T_2 q^{mn+1}q^{(k-1)(m+n)}) \\&\cdot(1 - T_1^n T_2 q^{(m-1)(n+1)+1}q^{(k-1)(m+n)}) \\& \cdot (1 - T_1^m T_2 q^{(n-1)(m+1)+1}q^{(k-1)(m+n)}) (1 - T_2 q^{mn}).
+    \end{align*}
+
+\begin{remark}\label{endremark}
+    Unlike the representation zeta function, the conjugacy class zeta function of a $k$-fold central product is not a scaling or shift of the function associated with the original group. From Definition \ref{bivfunc}, a change to $s_2$ would influence only the power of $|\mathcal{O}:I|$, which is independent of our choice of group scheme. 
+    % Moreover from \cite[\S 4.3.1]{z}, we have
+    % $$\mathcal Z^{\mathrm{irr}}_{G_{m,n}}(0,s) = \mathcal Z^{\mathrm{cc}}_{G_{m,n}}(0,s)$$
+    % And therefore (via Corollary \ref{ZIRR})
+    % $$\mathcal Z^{\mathrm{cc}}_{\times^k_ZG_{m,n}}(0,s) = \mathcal Z^{\mathrm{cc}}_{G_{m,n}}(0,s)$$
+    Any change in $s_1$ would induce a mapping $T_1 \mapsto T_1^\alpha q^\beta$. Applying this and comparing powers of $q$ gives an inconsistent set of simultaneous equations. Scaling outside the function fails similarly to a shift in $s_1$.
+\end{remark}
